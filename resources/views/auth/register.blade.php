@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -9,23 +9,62 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
+            <div class="container">
+                <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4" style="text-align: center">
+                    <!-- Profile Photo File Input -->
+                    <input type="file" class="hidden" wire:model="photo" x-ref="photo"
+                        x-on:change="
+                                        photoName = $refs.photo.files[0].name;
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            photoPreview = e.target.result;
+                                        };
+                                        reader.readAsDataURL($refs.photo.files[0]);
+                                " />
+                    <!-- Current Profile Photo -->
+                    <div class="mt-2" x-show="! photoPreview">
+                        <img src="{{ asset('images/user.png') }}" class="rounded-full h-20 w-20 object-cover"
+                            style="margin: auto">
+                    </div>
+                    <!-- New Profile Photo Preview -->
+                    <div class="mt-2" x-show="photoPreview" style="display: none text-align: center">
+                        <div class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center inline-flex items-center"
+                            x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                        </div>
+                    </div>
+
+                    <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+                        {{ __('Select A New Photo') }}
+                    </x-jet-secondary-button>
+
+                    <x-jet-input-error for="photo" class="mt-2" />
+                </div>
+                <br>
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="role" value="{{ __('Role') }}" />
+                <select id="role"
+                    class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    name="role" :value="old('role')" required autofocus autocomplete="role">
+                    <option value="owner">
+                        เจ้าของหอ
+                    </option>
+                    <option value="renter">
+                        ผู้เช่าหอ
+                    </option>
+                </select>
+            </div>
+            <br>
             <div>
-                <x-jet-label for="username" value="{{ __('Username') }}" />
-                <x-jet-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
-                    required />
-                    <input type="hidden" name="role" value="owner">
+                <x-jet-label for="name" value="{{ __('Name') }}" />
+                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                    required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
                 <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')"
                     required />
-            </div>
-
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                    required autofocus autocomplete="name" />
             </div>
 
             <div class="mt-4">

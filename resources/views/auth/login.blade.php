@@ -12,17 +12,19 @@
             </div>
         @endif
 
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
             <div>
-                <x-jet-label for="auth" value="{{ __('Email/Username/Phone Number') }}" />
-                <x-jet-input id="auth" class="block mt-1 w-full" type="text" name="auth" :value="old('auth')" required autofocus />
+                <x-jet-label for="auth" value="{{ __('Email/Phone Number') }}" />
+                <x-jet-input id="auth" class="block mt-1 w-full" type="text" name="auth" :value="old('auth')"
+                    required autofocus />
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
@@ -32,17 +34,36 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+            <div class="flex items-center justify-center mt-4">
 
                 <x-jet-button class="ml-4">
                     {{ __('Log in') }}
                 </x-jet-button>
             </div>
+            <div class="flex items-center justify-center mt-4">
+
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                        href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
+
+
+            </div>
+
         </form>
+        <div class="flex items-center justify-center mt-4">
+            <a href="{{ route('register') }}"
+                class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold" type="button">
+                {{ __('Create new account') }}</a>
+
+
+            {{-- @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="btn btn-success" type="button">
+                    {{ __('Create new account') }}</a>
+            @endif --}}
+
+        </div>
     </x-jet-authentication-card>
 </x-guest-layout>
