@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,9 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->middleware('roleChecker:admin,owner')->name('dashboard');
+
+    // Route::get('/dash2', function () {
+    //     return view('dash2');
+    // })->middleware('roleChecker:renter')->name('dash2');
 });

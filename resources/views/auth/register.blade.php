@@ -8,38 +8,9 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
-            <div class="container">
-                <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4" style="text-align: center">
-                    <!-- Profile Photo File Input -->
-                    <input type="file" class="hidden" wire:model="photo" x-ref="photo"
-                        x-on:change="
-                                        photoName = $refs.photo.files[0].name;
-                                        const reader = new FileReader();
-                                        reader.onload = (e) => {
-                                            photoPreview = e.target.result;
-                                        };
-                                        reader.readAsDataURL($refs.photo.files[0]);
-                                " />
-                    <!-- Current Profile Photo -->
-                    <div class="mt-2" x-show="! photoPreview">
-                        <img src="{{ asset('images/user.png') }}" class="rounded-full h-20 w-20 object-cover"
-                            style="margin: auto">
-                    </div>
-                    <!-- New Profile Photo Preview -->
-                    <div class="mt-2" x-show="photoPreview" style="display: none text-align: center">
-                        <div class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center inline-flex items-center"
-                            x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
-                        </div>
-                    </div>
-
-                    <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
-                        {{ __('Select A New Photo') }}
-                    </x-jet-secondary-button>
-
-                    <x-jet-input-error for="photo" class="mt-2" />
-                </div>
-                <br>
+            <div class="mt-2">
+                <img src="{{ asset('images/buildings.png') }}" class="rounded-full h-20 w-20 object-cover"
+                    style="margin: auto">
             </div>
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="role" value="{{ __('Role') }}" />
