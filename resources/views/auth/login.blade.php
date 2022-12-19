@@ -57,13 +57,6 @@
             <a href="{{ route('register') }}"
                 class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold" type="button">
                 {{ __('Create new account') }}</a>
-
-
-            {{-- @if (Route::has('register'))
-                <a href="{{ route('register') }}" class="btn btn-success" type="button">
-                    {{ __('Create new account') }}</a>
-            @endif --}}
-
         </div>
     </x-jet-authentication-card>
 </x-guest-layout>

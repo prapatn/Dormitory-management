@@ -12,7 +12,7 @@
                 <img src="{{ asset('images/buildings.png') }}" class="rounded-full h-20 w-20 object-cover"
                     style="margin: auto">
             </div>
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="role" value="{{ __('Role') }}" />
                 <select id="role"
                     class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
@@ -25,12 +25,14 @@
                     </option>
                 </select>
             </div>
-            <br>
-            <div>
+
+            <div class="mt-4">
                 <x-jet-label for="name" value="{{ __('Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
                     required autofocus autocomplete="name" />
             </div>
+
+            <livewire:select-address >
 
             <div class="mt-4">
                 <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
