@@ -10,7 +10,7 @@ use Livewire\Component;
 class SelectAddress extends Component
 {
 
-    public $province, $amphure, $district;
+    public $province, $amphure, $district,$address;
 
 
     public $provinces, $amphures, $districts;

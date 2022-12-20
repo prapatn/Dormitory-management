@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return  redirect(RouteServiceProvider::HOME);
+    return view('welcome');
 });
 
 Route::middleware([
@@ -24,15 +24,14 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    // //Admin
+    // Route::middleware(['roleChecker:admin'])->group(function () {
+    //     Route::get('/dashboard', function () {
+    //         return view('dashboard');
+    //     })->name('dashboard');
+    // });
 
-    //Admin
-    Route::middleware(['roleChecker:admin'])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-    });
-
-    //Owner
+    //  Owner
     Route::middleware(['roleChecker:owner'])->group(function () {
         Route::get('/dashboard', function () {
             return view('dashboard');
