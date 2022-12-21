@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Providers\RouteServiceProvider;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('auth.login');
 });
 
 Route::middleware([
@@ -24,6 +25,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    Route::get('/', [AuthController::class, 'authenticated']);
+
     // //Admin
     // Route::middleware(['roleChecker:admin'])->group(function () {
     //     Route::get('/dashboard', function () {
@@ -33,13 +36,15 @@ Route::middleware([
 
     //  Owner
     Route::middleware(['roleChecker:owner'])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
+
+        Route::get('/dormitory', function () {
+            return view('owner.dormitory.index');
+        })->name('dorm');
     });
 
-    //Renter
+    // Renter
     Route::middleware(['roleChecker:renter'])->group(function () {
+
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
