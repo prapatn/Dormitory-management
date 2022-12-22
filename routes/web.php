@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DormitoryController;
 use App\Providers\RouteServiceProvider;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+
     Route::get('/', [AuthController::class, 'authenticated']);
 
     // //Admin
@@ -36,10 +38,8 @@ Route::middleware([
 
     //  Owner
     Route::middleware(['roleChecker:owner'])->group(function () {
-
-        Route::get('/dormitory', function () {
-            return view('owner.dormitory.index');
-        })->name('dorm');
+        Route::get('/dormitories',[DormitoryController::class,'index'])->name('dorm');
+        Route::get('/dormitories/create',[DormitoryController::class,'create'])->name('dorm.create');
     });
 
     // Renter
