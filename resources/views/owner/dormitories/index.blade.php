@@ -7,27 +7,28 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('Success'))
+            <div class="alert alert-success " role="alert">
+                <b>{{ session('Success') }}</b>
+            </div>
+            @endif
+
+            @if (session('Fail'))
+            <div class="alert alert-danger " role="alert">
+                <b>{{ session('Fail') }}</b>
+            </div>
+            @endif
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Table --}}
                 <div class="col-md-12">
-                    @if (session('Success'))
-                    <div class="alert-success">
-                        <b>{{ session('Success') }}</b>
-                    </div>
-                    @endif
 
-                    @if (session('Fail'))
-                    <div class="alert-danger">
-                        <b>{{ session('Fail') }}</b>
-                    </div>
-                    @endif
                     <div class="card">
-                        <div class="card-header">ตารางรายการหอพัก</div>
+                        <div class="card-header text-xl font-semibold">ตารางรายการหอพัก</div>
                         <div class="card-body">
                             <div class="py-6">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="flex items-center justify-center">
+                                        <div class="flex items-center justify-center mb-4">
                                             <a href="{{ route('dorm.create') }}"
                                                 class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold"
                                                 type="button">
@@ -40,7 +41,7 @@
                                                     <th>ลำดับ</th>
                                                     <th>รูป</th>
                                                     <th>ชื่อ</th>
-                                                    <th>เบอร์โทรศัพท์</th>
+                                                    <th>ที่อยู่</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -48,24 +49,30 @@
                                                 @foreach ($dormitories as $row)
                                                 <tr>
                                                     <th>{{ $dormitories->firstItem() + $loop->index }}</th>
-                                                    <td><img src="{{ asset($row->image) }}" alt="" width="100px"
-                                                            height="100px"></td>
+                                                    <td>
+                                                        @if ($row->image)
+                                                        <img src="{{ asset($row->image) }}" alt="" width="100px"
+                                                            height="100px">
+                                                        @else
+                                                        <img src="{{ asset('images/buildings.png') }}" alt=""
+                                                            width="100px" height="100px">
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->address }}</td>
                                                     <td>
-                                                        {{-- <a href="{{ url('phone_profile/edit/' . $row->id) }}"
+                                                        <a href="{{ url('phone_profile/edit/' . $row->id) }}"
                                                             class="btn btn-warning">แก้ไข</a>
-                                                        <a href="{{ url('phone_profile/delete/' . $row->id) }}"
+                                                        <a href="{{ url('dormitories/delete/' . $row->id) }}"
                                                             class="btn btn-danger"
                                                             onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
-                                                        --}}
                                                     </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                         {{-- Tab page --}}
-                                        {{-- {{ $phone_profiles->links() }} --}}
+                                        {{ $dormitories->links() }}
                                         @endif
 
                                     </div>

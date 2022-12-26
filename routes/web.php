@@ -38,8 +38,10 @@ Route::middleware([
 
     //  Owner
     Route::middleware(['roleChecker:owner'])->group(function () {
-        Route::get('/dormitories',[DormitoryController::class,'index'])->name('dorm');
-        Route::get('/dormitories/create',[DormitoryController::class,'create'])->name('dorm.create');
+        Route::get('/dormitories', [DormitoryController::class, 'index'])->name('dorm');
+        Route::get('/dormitories/create', [DormitoryController::class, 'create'])->name('dorm.create');
+        Route::post('/dormitories/store', [DormitoryController::class, 'store'])->name('dorm.store');
+        Route::get('/dormitories/delete/{id}', [DormitoryController::class, 'delete']);
     });
 
     // Renter

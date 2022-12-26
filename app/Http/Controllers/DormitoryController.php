@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Dormitory;
 use App\Http\Requests\StoreDormitoryRequest;
 use App\Http\Requests\UpdateDormitoryRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AuthController;
 
 class DormitoryController extends Controller
 {
@@ -15,7 +17,7 @@ class DormitoryController extends Controller
      */
     public function index()
     {
-        $dormitories = Dormitory::all();
+        $dormitories = Dormitory::where('user_id', Auth::user()->id)->paginate(3);
         return view('owner.dormitories.index', compact('dormitories'));
     }
 
@@ -37,7 +39,30 @@ class DormitoryController extends Controller
      */
     public function store(StoreDormitoryRequest $request)
     {
-        //
+        $validateData = $request->validated();
+
+        $dormitory = new  Dormitory();
+
+        $image = $request->file('photo');
+        if (isset($image)) {
+            $dormitory->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
+        }
+
+        $dormitory->user_id = Auth::user()->id;
+        $dormitory->name = $validateData['name'];
+        $dormitory->phone = $validateData['phone'];
+        $dormitory->address = $validateData['address'];
+        $dormitory->province_id = $validateData['province'];
+        $dormitory->amphure_id = $validateData['amphure'];
+        $dormitory->district_id = $validateData['district'];
+        $dormitory->electricity_per_unit = $validateData['electricity_per_unit'];
+        $dormitory->water_per_unit = $validateData['water_per_unit'];
+        $dormitory->water_min_unit = $validateData['water_min_unit'];
+        $dormitory->water_pay_min = $validateData['water_pay_min'];
+
+        $dormitory->save();
+
+        return redirect()->route('dorm')->with('Success', 'บันทึกข้อมูลสำเร็จ');
     }
 
     /**
@@ -83,5 +108,28 @@ class DormitoryController extends Controller
     public function destroy(Dormitory $dormitory)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Dormitory  $dormitory
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        try {
+            $dormitory = Dormitory::where([
+                'id' => $id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            if ($dormitory->image) {
+                unlink($dormitory->image);
+            }
+            $dormitory->delete();
+            return redirect()->back()->with('Success', 'ลบข้อมูลสำเร็จ');
+        } catch (\Throwable $th) {
+            return redirect()->route('dorm')->with('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
+        }
     }
 }
