@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Amphure;
 use App\Models\District;
+use App\Models\Dormitory;
 use App\Models\Province;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -13,9 +14,13 @@ class DormForm extends Component
 {
     use WithFileUploads;
 
-    public $photo;
+    public $dorm_id;
 
-    public $province, $amphure, $district;
+    public $dbphoto, $photo;
+
+    public $name, $phone, $electricity_per_unit, $water_per_unit, $water_pay_min, $water_min_unit;
+
+    public $province, $amphure, $district, $address;
 
     public $provinces = [], $amphures = [], $districts = [];
 
@@ -32,9 +37,36 @@ class DormForm extends Component
      */
     public function mount()
     {
-        $this->province = Auth::user()->province_id;
-        $this->amphure = Auth::user()->amphure_id;
-        $this->district = Auth::user()->district_id;
+
+        if ($this->dorm_id == null) {
+            $this->address = Auth::user()->address;
+            $this->province = Auth::user()->province_id;
+            $this->amphure = Auth::user()->amphure_id;
+            $this->district = Auth::user()->district_id;
+        } else {
+
+            $model = Dormitory::where([
+                'id' => $this->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+
+            if (!$model) {
+                abort(404);
+            }
+
+            $this->dbphoto = $model->image;
+            $this->name = $model->name;
+            $this->phone = $model->phone;
+            $this->electricity_per_unit = $model->electricity_per_unit;
+            $this->water_per_unit = $model->water_per_unit;
+            $this->water_pay_min = $model->water_pay_min;
+            $this->water_min_unit = $model->water_min_unit;
+            $this->address =  $model->address;
+            $this->province =  $model->province_id;
+            $this->amphure =  $model->amphure_id;
+            $this->district =  $model->district_id;
+        }
+
 
         $this->provinces = Province::all();
         if ($this->province != '') {

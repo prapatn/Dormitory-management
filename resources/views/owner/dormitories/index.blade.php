@@ -7,17 +7,19 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @if (session('Success'))
-            <div class="alert alert-success " role="alert">
-                <b>{{ session('Success') }}</b>
+            @if (session()->has('Success'))
+            <div class="alert alert-success">
+                {{ session('Success') }}
+            </div>
+            @endif
+            @if (session()->has('Fail'))
+            <div class="alert alert-danger">
+                {{ session('Fail') }}
             </div>
             @endif
 
-            @if (session('Fail'))
-            <div class="alert alert-danger " role="alert">
-                <b>{{ session('Fail') }}</b>
-            </div>
-            @endif
+
+
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Table --}}
                 <div class="col-md-12">
@@ -61,7 +63,7 @@
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->address }}</td>
                                                     <td>
-                                                        <a href="{{ url('phone_profile/edit/' . $row->id) }}"
+                                                        <a href="{{ url('dormitories/edit/' . $row->id) }}"
                                                             class="btn btn-warning">แก้ไข</a>
                                                         <a href="{{ url('dormitories/delete/' . $row->id) }}"
                                                             class="btn btn-danger"

@@ -61,8 +61,8 @@ class DormitoryController extends Controller
         $dormitory->water_pay_min = $validateData['water_pay_min'];
 
         $dormitory->save();
-
-        return redirect()->route('dorm')->with('Success', 'บันทึกข้อมูลสำเร็จ');
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('dorm');
     }
 
     /**
@@ -82,9 +82,9 @@ class DormitoryController extends Controller
      * @param  \App\Models\Dormitory  $dormitory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dormitory $dormitory)
+    public function edit($id)
     {
-        //
+        return view('owner.dormitories.edit', compact('id'));
     }
 
     /**
@@ -127,9 +127,11 @@ class DormitoryController extends Controller
                 unlink($dormitory->image);
             }
             $dormitory->delete();
-            return redirect()->back()->with('Success', 'ลบข้อมูลสำเร็จ');
+            session()->flash('Success', 'ลบข้อมูลสำเร็จ');
+            return redirect()->route('dorm');
         } catch (\Throwable $th) {
-            return redirect()->route('dorm')->with('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
+            session()->flash('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
+            return redirect()->route('dorm');
         }
     }
 }

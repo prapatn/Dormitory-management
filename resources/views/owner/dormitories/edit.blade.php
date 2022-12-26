@@ -10,11 +10,10 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
                 <div class="col-md-12">
-                    <form action="{{route('dorm.store')}}" method="post" enctype="multipart/form-data">
-                        @livewire('dorm-form', ['dorm_id' => null])
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        @livewire('dorm-form', ['dorm_id' => $id])
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

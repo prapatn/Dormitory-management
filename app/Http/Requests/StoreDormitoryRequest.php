@@ -34,8 +34,8 @@ class StoreDormitoryRequest extends FormRequest
             "phone" => ['required', 'digits:10'],
             "electricity_per_unit" => ['required', 'numeric'],
             "water_per_unit" => ['required', 'numeric', 'min:1'],
-            "water_pay_min" => ['numeric', 'min:1'],
-            "water_min_unit" => ['numeric', 'min:1'],
+            "water_pay_min" => ['nullable','numeric', 'min:1'],
+            "water_min_unit" => ['nullable','numeric', 'min:1'],
         ];
     }
 }

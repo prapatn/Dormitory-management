@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateDormitoryRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateDormitoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return  Auth::check();
     }
 
     /**
@@ -24,7 +25,17 @@ class UpdateDormitoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "photo" => ['mimes:png,jpg,jpeg'],
+            "name" => ['required', 'string'],
+            "address" => ['required', 'string'],
+            "province" => ['required'],
+            "amphure" => ['required'],
+            "district" => [],
+            "phone" => ['required', 'digits:10'],
+            "electricity_per_unit" => ['required', 'numeric'],
+            "water_per_unit" => ['required', 'numeric', 'min:1'],
+            "water_pay_min" => ['nullable', 'numeric', 'min:1'],
+            "water_min_unit" => ['nullable', 'numeric', 'min:1'],
         ];
     }
 }

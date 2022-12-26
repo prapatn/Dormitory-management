@@ -41,6 +41,7 @@ Route::middleware([
         Route::get('/dormitories', [DormitoryController::class, 'index'])->name('dorm');
         Route::get('/dormitories/create', [DormitoryController::class, 'create'])->name('dorm.create');
         Route::post('/dormitories/store', [DormitoryController::class, 'store'])->name('dorm.store');
+        Route::get('/dormitories/edit/{id}', [DormitoryController::class, 'edit']);
         Route::get('/dormitories/delete/{id}', [DormitoryController::class, 'delete']);
     });
 
