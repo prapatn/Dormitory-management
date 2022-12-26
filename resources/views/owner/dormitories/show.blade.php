@@ -26,7 +26,7 @@
 
                     <div class="card">
                         <div class="card-header text-xl font-semibold">ตารางรายการหอพัก</div>
-                        <div class="card-body">
+                        {{-- <div class="card-body">
                             <div class="py-6">
                                 <div class="container">
                                     <div class="row">
@@ -40,6 +40,7 @@
                                         <table class="table table-striped mt-2">
                                             <thead class="table-dark">
                                                 <tr>
+                                                    <th>ลำดับ</th>
                                                     <th>รูป</th>
                                                     <th>ชื่อ</th>
                                                     <th>ที่อยู่</th>
@@ -49,21 +50,19 @@
                                             <tbody>
                                                 @foreach ($dormitories as $row)
                                                 <tr>
-
+                                                    <th>{{ $dormitories->firstItem() + $loop->index }}</th>
                                                     <td>
                                                         @if ($row->image)
-                                                        <img src="{{ asset($row->image) }}" alt="" width="200px"
+                                                        <img src="{{ asset($row->image) }}" alt="" width="100px"
                                                             height="100px">
                                                         @else
                                                         <img src="{{ asset('images/buildings.png') }}" alt=""
-                                                            width="200px" height="100px">
+                                                            width="100px" height="100px">
                                                         @endif
                                                     </td>
                                                     <td>{{ $row->name }}</td>
                                                     <td>{{ $row->getFullAddress(); }}</td>
                                                     <td>
-                                                        <a href="{{ url('dormitories/show/' . $row->id) }}"
-                                                            class="btn btn-primary">รายละเอียด</a>
                                                         <a href="{{ url('dormitories/edit/' . $row->id) }}"
                                                             class="btn btn-warning">แก้ไข</a>
                                                         <a href="{{ url('dormitories/delete/' . $row->id) }}"
@@ -75,13 +74,13 @@
                                             </tbody>
                                         </table>
                                         {{-- Tab page --}}
-                                        {{ $dormitories->links() }}
+                                        {{-- {{ $dormitories->links() }}
                                         @endif
 
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>

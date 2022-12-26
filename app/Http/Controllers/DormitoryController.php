@@ -71,9 +71,18 @@ class DormitoryController extends Controller
      * @param  \App\Models\Dormitory  $dormitory
      * @return \Illuminate\Http\Response
      */
-    public function show(Dormitory $dormitory)
+    public function show($id)
     {
-        //
+        try {
+            $dormitory = Dormitory::where([
+                'id' => $id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            return view('owner.dormitories.show', compact('dormitory'));
+        } catch (\Throwable $th) {
+            abort(404);
+        }
+
     }
 
     /**
@@ -102,7 +111,7 @@ class DormitoryController extends Controller
         if (isset($image)) {
             //ลบภาพเก่า
             $old_img = $dormitory->image;
-            if ($old_img){
+            if ($old_img) {
                 unlink($old_img);
             }
 
