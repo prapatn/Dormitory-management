@@ -39,6 +39,7 @@ class DormForm extends Component
     {
 
         if ($this->dorm_id == null) {
+            $this->phone = Auth::user()->phone;
             $this->address = Auth::user()->address;
             $this->province = Auth::user()->province_id;
             $this->amphure = Auth::user()->amphure_id;

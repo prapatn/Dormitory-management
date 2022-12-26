@@ -28,4 +28,33 @@ class Dormitory extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getFullAddress()
+    {
+        $province = Province::find($this->province_id)->name_th;
+        $amphure = Amphure::find($this->amphure_id)->name_th;
+        $district = District::find($this->district_id);
+        if (!$district) {
+            $fullAddress = $this->address .  "," . $amphure . "," . $province;
+        } else {
+            $fullAddress = $this->address . "," . $district->name_th . "," . $amphure . "," . $province;
+        }
+
+        return $fullAddress;
+    }
+
+    // public function province()
+    // {
+    //     return $this->belongsTo(Province::class);
+    // }
+
+    // public function amphure()
+    // {
+    //     return $this->belongsTo(Amphure::class);
+    // }
+
+    // public function district()
+    // {
+    //     return $this->belongsTo(District::class);
+    // }
 }

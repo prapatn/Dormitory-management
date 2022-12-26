@@ -61,7 +61,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $row->name }}</td>
-                                                    <td>{{ $row->address }}</td>
+                                                    <td>{{ $row->getFullAddress(); }}</td>
                                                     <td>
                                                         <a href="{{ url('dormitories/edit/' . $row->id) }}"
                                                             class="btn btn-warning">แก้ไข</a>

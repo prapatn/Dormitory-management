@@ -94,9 +94,35 @@ class DormitoryController extends Controller
      * @param  \App\Models\Dormitory  $dormitory
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDormitoryRequest $request, Dormitory $dormitory)
+    public function update(UpdateDormitoryRequest $request)
     {
-        //
+        $validateData = $request->validated();
+        $dormitory = Dormitory::find($request['id']);
+        $image = $request->file('photo');
+        if (isset($image)) {
+            //ลบภาพเก่า
+            $old_img = $dormitory->image;
+            if ($old_img){
+                unlink($old_img);
+            }
+
+
+            $dormitory->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
+        }
+        $dormitory->name = $validateData['name'];
+        $dormitory->phone = $validateData['phone'];
+        $dormitory->address = $validateData['address'];
+        $dormitory->province_id = $validateData['province'];
+        $dormitory->amphure_id = $validateData['amphure'];
+        $dormitory->district_id = $validateData['district'];
+        $dormitory->electricity_per_unit = $validateData['electricity_per_unit'];
+        $dormitory->water_per_unit = $validateData['water_per_unit'];
+        $dormitory->water_min_unit = $validateData['water_min_unit'];
+        $dormitory->water_pay_min = $validateData['water_pay_min'];
+
+        $dormitory->save();
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('dorm');
     }
 
     /**

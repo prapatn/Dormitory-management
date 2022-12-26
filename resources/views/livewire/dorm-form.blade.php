@@ -85,7 +85,7 @@
                     <div class="col-span-6 sm:col-span-4 mt-4">
                         <x-jet-label for="district" value="{{ __('ตำบล/แขวง') }}" />
                         <select id="district" class="form-control text-s" name="district" :value="old('district')"
-                            required autocomplete="district" wire:model="district">
+                            autocomplete="district" wire:model="district">
                             <option value=""></option>
                             @foreach ($districts as $item)
                             <option value="{{ $item->id }}">{{ $item->name_th }}</option>

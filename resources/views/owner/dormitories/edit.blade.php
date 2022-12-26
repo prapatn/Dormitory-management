@@ -10,7 +10,8 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
                 <div class="col-md-12">
-                    <form action="#" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dorm.update')}}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{{$id}}">
                         @livewire('dorm-form', ['dorm_id' => $id])
                     </form>
                 </div>
