@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDormitoryRequest;
 use App\Http\Requests\UpdateDormitoryRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
+use Carbon\Carbon;
 
 class DormitoryController extends Controller
 {
@@ -71,9 +72,18 @@ class DormitoryController extends Controller
      * @param  \App\Models\Dormitory  $dormitory
      * @return \Illuminate\Http\Response
      */
-    public function show(Dormitory $dormitory)
+    public function show($id)
     {
-        //
+        try {
+            $dormitory = Dormitory::where([
+                'id' => $id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            return view('owner.dormitories.show', compact('dormitory'));
+        } catch (\Throwable $th) {
+            abort(404);
+        }
+
     }
 
     /**
@@ -102,11 +112,9 @@ class DormitoryController extends Controller
         if (isset($image)) {
             //ลบภาพเก่า
             $old_img = $dormitory->image;
-            if ($old_img){
+            if ($old_img) {
                 unlink($old_img);
             }
-
-
             $dormitory->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
         }
         $dormitory->name = $validateData['name'];
@@ -119,6 +127,7 @@ class DormitoryController extends Controller
         $dormitory->water_per_unit = $validateData['water_per_unit'];
         $dormitory->water_min_unit = $validateData['water_min_unit'];
         $dormitory->water_pay_min = $validateData['water_pay_min'];
+        $dormitory->updated_at = Carbon::now('GMT+7');
 
         $dormitory->save();
         session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
