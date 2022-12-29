@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('จัดการห้องพัก') }}
+            {{$dormitory->name.' : จัดการห้องพัก' }}
         </h2>
     </x-slot>
 
@@ -10,8 +10,9 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
                 <div class="col-md-12">
-                    <form action="{{route('dorm.store')}}" method="post" enctype="multipart/form-data">
-                        {{-- @livewire('dorm-form', ['dorm_id' => null]) --}}
+                    <form action="{{ route('room.store') }}" method="post" enctype="multipart/form-data">
+                        <input type="text" hidden name="dorm_id" value="{{ $dormitory->id}}">
+                        @livewire('room-form', ['dorm_id' => $dormitory->id,'room'=>null])
                     </form>
                 </div>
             </div>

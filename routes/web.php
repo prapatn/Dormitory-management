@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DormitoryController;
+use App\Http\Controllers\RoomController;
 use App\Providers\RouteServiceProvider;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::middleware([
 
     //  Owner
     Route::middleware(['roleChecker:owner'])->group(function () {
+        //Dormitories
         Route::get('/dormitories', [DormitoryController::class, 'index'])->name('dorm');
         Route::get('/dormitories/create', [DormitoryController::class, 'create'])->name('dorm.create');
         Route::get('/dormitories/payment/{id}', [DormitoryController::class, 'payment'])->name('dorm.payment');
@@ -47,6 +49,10 @@ Route::middleware([
         Route::post('/dormitories/update/payment', [DormitoryController::class, 'updatePayment'])->name('dorm.update.payment');
         Route::get('/dormitories/show/{id}', [DormitoryController::class, 'show']);
         Route::get('/dormitories/delete/{id}', [DormitoryController::class, 'delete']);
+
+        //Room
+        Route::get('/room/create/{id}', [RoomController::class, 'create'])->name('room.create');
+        Route::post('/room/store', [RoomController::class, 'store'])->name('room.store');
     });
 
     // Renter

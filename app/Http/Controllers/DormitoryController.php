@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateDormitoryRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Requests\UpdateDormitoryPaymentRequest;
+use App\Models\Room;
 use Carbon\Carbon;
 use Livewire\WithFileUploads;
 
@@ -100,7 +101,8 @@ class DormitoryController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
-            return view('owner.dormitories.show', compact('dormitory'));
+            $rooms = Room::where(['dorm_id' => $dormitory->id])->get();
+            return view('owner.dormitories.show', compact('dormitory', 'rooms'));
         } catch (\Throwable $th) {
             abort(404);
         }

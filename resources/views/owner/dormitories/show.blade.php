@@ -99,12 +99,14 @@
                                             <h5 class="font-semibold " style="color: red">
                                                 กรุณาเพิ่มข้อมูลช่องทางการจ่ายเงิน</h5>
                                             @else
-                                            <a href="{{ route('dorm.create') }}"
+                                            <a href="{{ route('room.create', ['id'=>$dormitory->id]) }}"
                                                 class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold"
                                                 type="button">
                                                 {{ __('เพิ่มข้อมูลห้องพักใหม่') }}</a>
-                                            @endif
 
+
+
+                                            @endif
                                         </div>
                                         {{-- @if (count($dormitories)!=0)
                                         <table class="table table-striped mt-2">
