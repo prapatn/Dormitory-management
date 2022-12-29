@@ -44,6 +44,7 @@ Route::middleware([
         Route::post('/dormitories/store', [DormitoryController::class, 'store'])->name('dorm.store');
         Route::get('/dormitories/edit/{id}', [DormitoryController::class, 'edit']);
         Route::post('/dormitories/update', [DormitoryController::class, 'update'])->name('dorm.update');
+        Route::post('/dormitories/update/payment', [DormitoryController::class, 'updatePayment'])->name('dorm.update.payment');
         Route::get('/dormitories/show/{id}', [DormitoryController::class, 'show']);
         Route::get('/dormitories/delete/{id}', [DormitoryController::class, 'delete']);
     });

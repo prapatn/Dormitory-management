@@ -51,8 +51,9 @@
                                                         $dormitory->created_at->format('d/m/Y')
                                                         }}
                                                     </h6>
-                                                    <h6>อัพเดทล่าสุด : {{
-                                                        Carbon\Carbon::parse($dormitory->update_at)->diffForHumans()
+                                                    <h6>อัพเดทล่าสุด :
+                                                        {{
+                                                        $dormitory->updated_at->format('H:i น. d/m/Y')
                                                         }}
                                                     </h6>
                                                     @if ($dormitory->payment_number==null &&
