@@ -7,7 +7,9 @@ use App\Http\Requests\StoreDormitoryRequest;
 use App\Http\Requests\UpdateDormitoryRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
+use App\Http\Requests\UpdateDormitoryPaymentRequest;
 use Carbon\Carbon;
+use Livewire\WithFileUploads;
 
 class DormitoryController extends Controller
 {
@@ -20,6 +22,25 @@ class DormitoryController extends Controller
     {
         $dormitories = Dormitory::where('user_id', Auth::user()->id)->paginate(3);
         return view('owner.dormitories.index', compact('dormitories'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function payment($id)
+    {
+        try {
+            $dormitory = Dormitory::where([
+                'id' => $id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            $photo = null;
+            return view('owner.dormitories.payment', compact('dormitory', 'photo'));
+        } catch (\Throwable $th) {
+            abort(404);
+        }
     }
 
     /**
@@ -83,7 +104,6 @@ class DormitoryController extends Controller
         } catch (\Throwable $th) {
             abort(404);
         }
-
     }
 
     /**
@@ -132,6 +152,28 @@ class DormitoryController extends Controller
         $dormitory->save();
         session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
         return redirect()->route('dorm');
+    }
+
+    public function updatePayment(UpdateDormitoryPaymentRequest $request)
+    {
+        $validateData = $request->validated();
+        $dormitory = Dormitory::find($request['id']);
+        $image = $request->file('photo');
+        if (isset($image)) {
+            //ลบภาพเก่า
+            $old_img = $dormitory->payment_image;
+            if ($old_img) {
+                unlink($old_img);
+            }
+            $dormitory->payment_image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/payment/");
+        }
+        $dormitory->bank_name = $validateData['bank_name'];
+        $dormitory->payment_number = $validateData['payment_number'];
+        $dormitory->updated_at = Carbon::now('GMT+7');
+
+        $dormitory->save();
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect('dormitories/show/' . $dormitory->id);
     }
 
     /**

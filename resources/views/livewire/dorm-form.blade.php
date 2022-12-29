@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">ข้อมูลหอพัก</div>
+    <div class="card-header font-semibold text-xl text-gray-800 leading-tight">ข้อมูลหอพัก</div>
     <div class="card-body">
         @csrf {{-- ป้องกันการ Hack ด้วย การป้อน Script --}}
         <div class=" flex items-center justify-center">
