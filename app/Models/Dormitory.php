@@ -22,6 +22,9 @@ class Dormitory extends Model
         'water_min_unit',
         'water_pay_min',
         'image',
+        'payment_number',
+        'bank_name',
+        'payment_image'
     ];
 
     public function user()
@@ -37,7 +40,7 @@ class Dormitory extends Model
         if (!$district) {
             $fullAddress = $this->address .  "," . $amphure . "," . $province;
         } else {
-            $fullAddress = $this->address . "," . $district->name_th . "," . $amphure . "," . $province;
+            $fullAddress = $this->address . "," . $district->name_th . "," . $amphure . "," . $province . " " .  $district->zip_code;
         }
 
         return $fullAddress;

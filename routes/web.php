@@ -40,6 +40,7 @@ Route::middleware([
     Route::middleware(['roleChecker:owner'])->group(function () {
         Route::get('/dormitories', [DormitoryController::class, 'index'])->name('dorm');
         Route::get('/dormitories/create', [DormitoryController::class, 'create'])->name('dorm.create');
+        Route::get('/dormitories/payment/{id}', [DormitoryController::class, 'payment'])->name('dorm.payment');
         Route::post('/dormitories/store', [DormitoryController::class, 'store'])->name('dorm.store');
         Route::get('/dormitories/edit/{id}', [DormitoryController::class, 'edit']);
         Route::post('/dormitories/update', [DormitoryController::class, 'update'])->name('dorm.update');

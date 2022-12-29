@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateDormitoryRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use Carbon\Carbon;
+use Livewire\WithFileUploads;
 
 class DormitoryController extends Controller
 {
@@ -20,6 +21,25 @@ class DormitoryController extends Controller
     {
         $dormitories = Dormitory::where('user_id', Auth::user()->id)->paginate(3);
         return view('owner.dormitories.index', compact('dormitories'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function payment($id)
+    {
+        try {
+            $dormitory = Dormitory::where([
+                'id' => $id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            $photo = null;
+            return view('owner.dormitories.payment', compact('dormitory', 'photo'));
+        } catch (\Throwable $th) {
+            abort(404);
+        }
     }
 
     /**
@@ -83,7 +103,6 @@ class DormitoryController extends Controller
         } catch (\Throwable $th) {
             abort(404);
         }
-
     }
 
     /**
