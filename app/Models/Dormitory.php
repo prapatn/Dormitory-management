@@ -46,6 +46,11 @@ class Dormitory extends Model
         return $fullAddress;
     }
 
+    public function room()
+    {
+        return $this->hasMany(Room::class);
+    }
+
     // public function province()
     // {
     //     return $this->belongsTo(Province::class);
