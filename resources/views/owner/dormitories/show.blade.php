@@ -103,52 +103,9 @@
                                                 class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold"
                                                 type="button">
                                                 {{ __('เพิ่มข้อมูลห้องพักใหม่') }}</a>
-
-
-
                                             @endif
                                         </div>
-                                        {{-- @if (count($dormitories)!=0)
-                                        <table class="table table-striped mt-2">
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th>ลำดับ</th>
-                                                    <th>รูป</th>
-                                                    <th>ชื่อ</th>
-                                                    <th>ที่อยู่</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($dormitories as $row)
-                                                <tr>
-                                                    <th>{{ $dormitories->firstItem() + $loop->index }}</th>
-                                                    <td>
-                                                        @if ($row->image)
-                                                        <img src="{{ asset($row->image) }}" alt="" width="100px"
-                                                            height="100px">
-                                                        @else
-                                                        <img src="{{ asset('images/buildings.png') }}" alt=""
-                                                            width="100px" height="100px">
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $row->name }}</td>
-                                                    <td>{{ $row->getFullAddress(); }}</td>
-                                                    <td>
-                                                        <a href="{{ url('dormitories/edit/' . $row->id) }}"
-                                                            class="btn btn-warning">แก้ไข</a>
-                                                        <a href="{{ url('dormitories/delete/' . $row->id) }}"
-                                                            class="btn btn-danger"
-                                                            onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table> --}}
-                                        {{-- Tab page --}}
-                                        {{-- {{ $dormitories->links() }}
-                                        @endif --}}
-
+                                        @livewire('rooms-table-view', ['dorm_id' => $dormitory->id])
                                     </div>
                                 </div>
                             </div>

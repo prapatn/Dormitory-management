@@ -101,8 +101,7 @@ class DormitoryController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
-            $rooms = Room::where(['dorm_id' => $dormitory->id])->get();
-            return view('owner.dormitories.show', compact('dormitory', 'rooms'));
+            return view('owner.dormitories.show', compact('dormitory'));
         } catch (\Throwable $th) {
             abort(404);
         }
