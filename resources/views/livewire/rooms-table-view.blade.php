@@ -1,10 +1,10 @@
+@if (count($rooms)>0)
 <div>
-
     <div class="col-3 mb-2">
         <input wire:model="search" type="search" placeholder="ค้นหาด้วยหมายเลขห้อง" class="form-control">
     </div>
-
     <table class="table table-striped mt-4">
+        @if (count($results)>0)
         <thead class="table-dark">
             <tr>
                 <th>ห้อง</th>
@@ -14,9 +14,9 @@
                 <th></th>
             </tr>
         </thead>
-        @if (count($rooms)>0)
+
         <tbody>
-            @foreach ($rooms as $row)
+            @foreach ($results as $row)
             <tr>
                 <td>{{ $row->name }}</td>
                 <td>{{ $row->floor }}</td>
@@ -39,10 +39,7 @@
     </table>
     {{-- Tab page --}}
     <div class="mt-4">
-        {{ $rooms->links() }}
+        {{ $results->links() }}
     </div>
-
-
-
-
 </div>
+@endif

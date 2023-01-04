@@ -21,10 +21,11 @@ class RoomsTableView extends Component
     }
     public function render()
     {
+        $rooms = Room::where('dorm_id', $this->dorm_id)->paginate(10);
         $results =  Room::where('dorm_id', $this->dorm_id)
             ->where('name', 'like', '%' . $this->search . '%')
             ->paginate(10);
-        return view('livewire.rooms-table-view', ['rooms' => $results]);
+        return view('livewire.rooms-table-view', ['rooms' => $rooms, 'results' => $results]);
     }
 
     public function mount()
