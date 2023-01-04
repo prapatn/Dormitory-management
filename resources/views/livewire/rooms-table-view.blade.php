@@ -1,9 +1,9 @@
 <div>
-    @if (count($rooms)>0)
+
     <div class="col-3 mb-2">
-        <input wire:model="search" type="search" placeholder="Search posts by title..."
-            class="form-control">
-        </div>
+        <input wire:model="search" type="search" placeholder="ค้นหาด้วยหมายเลขห้อง" class="form-control">
+    </div>
+
     <table class="table table-striped mt-4">
         <thead class="table-dark">
             <tr>
@@ -14,6 +14,7 @@
                 <th></th>
             </tr>
         </thead>
+        @if (count($rooms)>0)
         <tbody>
             @foreach ($rooms as $row)
             <tr>
@@ -30,11 +31,18 @@
             </tr>
             @endforeach
         </tbody>
+        @else
+        <p class="" style="color: red">
+            ค้นหาไม่พบ </p>
+        @endif
+
     </table>
     {{-- Tab page --}}
     <div class="mt-4">
         {{ $rooms->links() }}
     </div>
-    @endif
+
+
+
 
 </div>
