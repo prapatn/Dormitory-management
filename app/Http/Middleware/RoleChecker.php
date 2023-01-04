@@ -18,7 +18,7 @@ class RoleChecker
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!Auth::check()) // I included this check because you have it, but it really should be part of your 'auth' middleware, most likely added as part of a route group.
+        if (!Auth::check())
             return redirect('login');
 
         $user = Auth::user();
@@ -29,7 +29,6 @@ class RoleChecker
                 return $next($request);
             }
         }
-        // return route('dash2');
         abort(403);
     }
 }

@@ -121,4 +121,26 @@ class RoomController extends Controller
     {
         //
     }
+
+    public function delete($id)
+    {
+        try {
+            $room = Room::where([
+                'id' => $id,
+            ])->first();
+            $dorm = Dormitory::where([
+                'id' =>  $room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+
+            if ($dorm) {
+                $room->delete();
+                session()->flash('Success', 'ลบข้อมูลสำเร็จ');
+                return  redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            session()->flash('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
+            return  redirect()->back();
+        }
+    }
 }

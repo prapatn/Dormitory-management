@@ -185,7 +185,12 @@ class DormitoryController extends Controller
      */
     public function destroy(Dormitory $dormitory)
     {
-        //
+        // if ($dormitory->image) {
+        //     unlink($dormitory->image);
+        // }
+        // if ($dormitory->payment_image) {
+        //     unlink($dormitory->payment_image);
+        // }
     }
 
     /**
@@ -201,9 +206,6 @@ class DormitoryController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
-            if ($dormitory->image) {
-                unlink($dormitory->image);
-            }
             $dormitory->delete();
             session()->flash('Success', 'ลบข้อมูลสำเร็จ');
             return redirect()->route('dorm');
