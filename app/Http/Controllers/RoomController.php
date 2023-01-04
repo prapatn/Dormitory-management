@@ -137,6 +137,9 @@ class RoomController extends Controller
                 $room->delete();
                 session()->flash('Success', 'ลบข้อมูลสำเร็จ');
                 return  redirect()->back();
+            } else {
+                session()->flash('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
+                return  redirect()->back();
             }
         } catch (\Throwable $th) {
             session()->flash('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
