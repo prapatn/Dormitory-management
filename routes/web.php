@@ -47,13 +47,15 @@ Route::middleware([
         Route::get('/dormitories/edit/{id}', [DormitoryController::class, 'edit']);
         Route::post('/dormitories/update', [DormitoryController::class, 'update'])->name('dorm.update');
         Route::post('/dormitories/update/payment', [DormitoryController::class, 'updatePayment'])->name('dorm.update.payment');
-        Route::get('/dormitories/show/{id}', [DormitoryController::class, 'show']);
+        Route::get('/dormitories/show/{id}', [DormitoryController::class, 'show'])->name('dorm.show');
         Route::get('/dormitories/delete/{id}', [DormitoryController::class, 'delete']);
 
         //Room
         Route::get('/room/create/{id}', [RoomController::class, 'create'])->name('room.create');
         Route::post('/room/store', [RoomController::class, 'store'])->name('room.store');
         Route::get('/room/delete/{id}', [RoomController::class, 'delete'])->name('room.delete');
+        Route::get('/room/edit/{id}', [RoomController::class, 'edit'])->name('room.edit');
+        Route::post('/room/update', [RoomController::class, 'update'])->name('room.update');
     });
 
     // Renter

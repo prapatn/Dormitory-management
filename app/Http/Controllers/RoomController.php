@@ -94,11 +94,26 @@ class RoomController extends Controller
      * @param  \App\Models\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function edit(room $room)
+    public function edit($id)
     {
-        //
-    }
+        try {
+            $room = Room::where([
+                'id' => $id,
+            ])->first();
+            $dormitory = Dormitory::where([
+                'id' =>  $room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
 
+            if (!$dormitory) {
+                return  abort(403);
+            } else {
+                return view('owner.room.edit', compact('room'));
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -106,9 +121,16 @@ class RoomController extends Controller
      * @param  \App\Models\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateroomRequest $request, room $room)
+    public function update(UpdateroomRequest $request)
     {
-        //
+        $validateData = $request->validated();
+        Room::find($request['id'])->update([
+            'name' => $validateData['name'],
+            'floor' =>  $validateData['floor'],
+            'price' =>  $validateData['price'],
+        ]);
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('dorm.show', ['id' => $request->dorm_id]);
     }
 
     /**

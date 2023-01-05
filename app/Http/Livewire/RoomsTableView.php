@@ -23,7 +23,7 @@ class RoomsTableView extends Component
     {
         $rooms = Room::where('dorm_id', $this->dorm_id)->paginate(10);
         $results =  Room::where('dorm_id', $this->dorm_id)
-            ->where('name', 'like', '%' . $this->search . '%')
+            ->where('name', 'like', '%' . $this->search . '%')->orderBy('name', 'ASC')
             ->paginate(10);
         return view('livewire.rooms-table-view', ['rooms' => $rooms, 'results' => $results]);
     }

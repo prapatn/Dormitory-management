@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateRoomRequest extends FormRequest
 {
@@ -25,7 +26,9 @@ class UpdateRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => ['required', 'string',  Rule::unique('rooms')->ignore($this->id)->whereNull('deleted_at')],
+            "floor" => ['required', 'numeric'],
+            "price" => ['required', 'numeric', 'min:1'],
         ];
     }
 }

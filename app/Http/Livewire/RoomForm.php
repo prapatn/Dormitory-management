@@ -6,8 +6,8 @@ use Livewire\Component;
 
 class RoomForm extends Component
 {
-    public $room;
-    public $num_start,$num_end;
+    public $room, $name, $floor, $price;
+    public $num_start, $num_end;
 
 
     public function render()
@@ -17,7 +17,10 @@ class RoomForm extends Component
 
     public function mount()
     {
-        if ($this->room != null) {
+        if ($this->room) {
+            $this->name = $this->room->name;
+            $this->floor = $this->room->floor;
+            $this->price = $this->room->price;
         }
     }
 }

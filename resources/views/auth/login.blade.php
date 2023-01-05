@@ -7,18 +7,22 @@
         <x-jet-validation-errors class="mb-4" />
 
         @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
+        <div class="mb-4 font-medium text-sm text-green-600">
+            {{ session('status') }}
+        </div>
         @endif
-
+        @if (session()->has('Fail'))
+        <div class="alert alert-danger">
+            {{ session('Fail') }}
+        </div>
+        @endif
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div>
                 <x-jet-label for="auth" value="{{ __('Email/Phone Number') }}" />
-                <x-jet-input id="auth" class="block mt-1 w-full" type="text" name="auth" :value="old('auth')"
-                    required autofocus />
+                <x-jet-input id="auth" class="block mt-1 w-full" type="text" name="auth" :value="old('auth')" required
+                    autofocus />
             </div>
 
             <div class="mt-4">
@@ -43,10 +47,9 @@
             <div class="flex items-center justify-center mt-4">
 
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
-                        href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
                 @endif
 
 

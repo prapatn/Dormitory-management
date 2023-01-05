@@ -28,7 +28,7 @@ class StoreDormitoryRequest extends FormRequest
         $data = $this->request->all();
         return [
             "photo" => ['mimes:png,jpg,jpeg'],
-            "name" => ['required', 'string', Rule::unique('dormitories')->ignore($data['name'])->whereNull('deleted_at')],
+            "name" => ['required', 'string', Rule::unique('dormitories')->where('user_id',  Auth::user()->id)->ignore($data['name'])->whereNull('deleted_at')],
             "address" => ['required', 'string'],
             "province" => ['required'],
             "amphure" => ['required'],

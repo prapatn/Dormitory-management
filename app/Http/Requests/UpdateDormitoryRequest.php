@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateDormitoryRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class UpdateDormitoryRequest extends FormRequest
     {
         return [
             "photo" => ['mimes:png,jpg,jpeg'],
-            "name" => ['required', 'string'],
+            "name" => ['required', 'string',  Rule::unique('dormitories')->ignore($this->id)],
             "address" => ['required', 'string'],
             "province" => ['required'],
             "amphure" => ['required'],
