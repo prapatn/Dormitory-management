@@ -33,6 +33,9 @@ class RoomController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
+            if (!$dormitory) {
+                abort(404);
+            }
             return view('owner.room.create', compact('dormitory'));
         } catch (\Throwable $th) {
             abort(404);
@@ -106,7 +109,7 @@ class RoomController extends Controller
             ])->first();
 
             if (!$dormitory) {
-                return  abort(403);
+                abort(404);
             } else {
                 return view('owner.room.edit', compact('room'));
             }

@@ -101,6 +101,9 @@ class DormitoryController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
+            if (!$dormitory) {
+                abort(404);
+            }
             return view('owner.dormitories.show', compact('dormitory'));
         } catch (\Throwable $th) {
             abort(404);
