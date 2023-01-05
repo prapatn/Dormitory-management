@@ -23,7 +23,7 @@
                 <td>{{ $row->price }}</td>
                 <td>{{" ว่าง " }}</td>
                 <td style="text-align:right;">
-                    <a href="{{ url('dormitories/show/' . $row->id) }}" class="btn btn-primary">รายละเอียด</a>
+                    <a href="{{ route('room.show',['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
                     <a href="{{ route('room.edit',['id'=>$row->id]) }}" class="btn btn-warning">แก้ไข</a>
                     <a href="{{ route('room.delete',['id'=>$row->id]) }}" class="btn btn-danger"
                         onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>

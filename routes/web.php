@@ -56,6 +56,7 @@ Route::middleware([
         Route::get('/room/delete/{id}', [RoomController::class, 'delete'])->name('room.delete');
         Route::get('/room/edit/{id}', [RoomController::class, 'edit'])->name('room.edit');
         Route::post('/room/update', [RoomController::class, 'update'])->name('room.update');
+        Route::get('/room/show/{id}', [RoomController::class, 'show'])->name('room.show');
     });
 
     // Renter

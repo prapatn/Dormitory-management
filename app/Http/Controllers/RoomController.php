@@ -86,9 +86,20 @@ class RoomController extends Controller
      * @param  \App\Models\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function show(room $room)
+    public function show($id)
     {
-        //
+        $room = Room::where([
+            'id' => $id,
+        ])->first();
+        $dormitory = Dormitory::where([
+            'id' =>  $room->dorm_id,
+            'user_id' => Auth::user()->id,
+        ])->first();
+
+        if (!$dormitory) {
+            abort(404);
+        }
+        return view('owner.room.show', compact('room'));
     }
 
     /**
@@ -124,7 +135,7 @@ class RoomController extends Controller
      * @param  \App\Models\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateroomRequest $request)
+    public function update(UpdateRoomRequest $request)
     {
         $validateData = $request->validated();
         Room::find($request['id'])->update([

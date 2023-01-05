@@ -23,4 +23,9 @@ class Room extends Model
     {
         return $this->belongsTo(Dormitory::class);
     }
+
+    public function agreement()
+    {
+        return $this->hasMany(Agreement::class);
+    }
 }
