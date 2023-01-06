@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Agreement;
 use App\Http\Requests\StoreAgreementRequest;
 use App\Http\Requests\UpdateAgreementRequest;
+use App\Models\Dormitory;
+use App\Models\Room;
+use Illuminate\Support\Facades\Auth;
 
 class AgreementController extends Controller
 {
@@ -23,9 +26,20 @@ class AgreementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $room = Room::where([
+            'id' => $id,
+        ])->first();
+        $dormitory = Dormitory::where([
+            'id' =>  $room->dorm_id,
+            'user_id' => Auth::user()->id,
+        ])->first();
+
+        if (!$dormitory) {
+            abort(404);
+        }
+        return view('owner.agreement.create', compact('room'));
     }
 
     /**
@@ -36,7 +50,7 @@ class AgreementController extends Controller
      */
     public function store(StoreAgreementRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**

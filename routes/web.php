@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\RoomController;
@@ -57,6 +58,9 @@ Route::middleware([
         Route::get('/room/edit/{id}', [RoomController::class, 'edit'])->name('room.edit');
         Route::post('/room/update', [RoomController::class, 'update'])->name('room.update');
         Route::get('/room/show/{id}', [RoomController::class, 'show'])->name('room.show');
+
+         //Agreement
+         Route::get('/agreement/create/{id}', [AgreementController::class, 'create'])->name('agreement.create');
     });
 
     // Renter
