@@ -10,10 +10,10 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
                 <div class="col-md-12">
-                    <form action="#" method="post" enctype="multipart/form-data">
-
+                    <form action="{{ route('agreement.store') }}" method="post" enctype="multipart/form-data">
                         <input type="text" hidden name="room_id" value="{{ $room->id}}">
-                        @livewire('agreement-form', ['room'=>$room])
+                        {{-- {{Cookie::get('renter')}} --}}
+                        @livewire('agreement-form', ['room'=>$room,'renter'=> request()->cookie('renter')])
                     </form>
                 </div>
             </div>

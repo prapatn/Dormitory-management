@@ -4,22 +4,18 @@
         @csrf {{-- ป้องกันการ Hack ด้วย การป้อน Script --}}
         <div class="flex items-center justify-center mt-4">
             <div class="row justify-center">
-                <div class="col-span-6 sm:col-span-4 mb-4">
+                <h4 class="font-semibold">ข้อมูลผู้เช่า</h4>
+                <div class="col-span-6 sm:col-span-4  mt-4">
                     <x-jet-label for="renter" value="{{ __('ผู้เช่า มี/ไม่มี บัญชีในระบบ') }}" />
-                    <select id="renter" class="form-control text-s" name="renter" wire:model="renter">
-                        <option value=""></option>
+                    <select id="renter" class="form-control text-s" autofocus name="renter" wire:model="renter">
+                        <option value="">ไม่มี</option>
                         <option value="0">มี</option>
-                        <option value="1">ไม่มี</option>
+
                     </select>
                 </div>
 
-
                 <div class="col-12">
-                    @if ($this->renter!='')
-                    <h4 class="font-semibold">ข้อมูลผู้เช่า</h4>
-                    @endif
-
-                    @if ($this->renter == '1')
+                    @if ($this->renter == '')
                     <div class="mt-4">
                         <x-jet-label for="name" value="{{ __('ชื่อ-นามสกุล') }}" />
                         <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
@@ -53,8 +49,8 @@
 
                     <div class="relative mt-4">
                         <x-jet-label for="search" value="{{ __('อีเมล/เบอร์โทรศัพท์') }}" />
-                        <x-jet-input type='text' class="form-control block mt-1 w-full" wire:model="search"
-                            wire:keydown.escape="resetSearch" wire:keydown.tab="resetSearch" />
+                        <x-jet-input type='text' class="form-control block mt-1 w-full" wire:model="search" autofocus
+                            required wire:keydown.escape="resetSearch" wire:keydown.tab="resetSearch" />
                         @if ($this->results)
                         <div class="fixed top-0 bottom-0 left-0 right-0" wire:click="resetSearch"></div>
                         <div class="relative">
@@ -85,6 +81,10 @@
                                     <x-jet-input class="form-control block mt-1 w-full"
                                         value='{{$this->user->name ." (".$this->user->email ." ". $this->user->phone .") "}}'
                                         disabled />
+                                    <input type="text" class="hidden" value="{{$this->user->id}}" name="user_id"
+                                        id="user_id">
+                                    <x-jet-input-error for="user_id" class="mt-2" />
+
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,6 @@
 
                     @endif
 
-                    @if ($this->renter!='')
                     <h4 class="font-semibold mt-4">ข้อมูลสัญญาเช่า</h4>
 
                     <h5>ห้อง : {{ $this->room->name}}</h5>
@@ -130,23 +129,25 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="room_id" value="{{$this->room->id}}">
                     <div class="mt-4">
                         <x-jet-label for="price_guarantee" value="{{ __('ค่าประกัน') }}" />
-                        <x-jet-input id="price_guarantee" class="block mt-1 w-full" type="text" name="price_guarantee"
+                        <x-jet-input id="price_guarantee" class="block mt-1 w-full" type="number" name="price_guarantee"
                             :value="old('price_guarantee')" required autofocus autocomplete="price_guarantee" />
+                        <x-jet-input-error for="price_guarantee" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="start_date" value="{{ __('เข้าอยู่') }}" />
                         <x-jet-input id="start_date" class="block mt-1 w-full" type="date" name="start_date"
                             :value="old('start_date')" required />
+                        <x-jet-input-error for="start_date" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="end_date" value="{{ __('สิ้นสุด') }}" />
                         <x-jet-input id="end_date" class="block mt-1 w-full" type="date" name="end_date"
                             :value="old('end_date')" required />
+                        <x-jet-input-error for="end_date" class="mt-2" />
                     </div>
 
                     <div class="container mb-4 mr-2 mt-4">
@@ -156,11 +157,9 @@
                             </x-jet-button>
                         </div>
                     </div>
-                    @endif
 
                 </div>
             </div>
         </div>
     </div>
-
 </div>

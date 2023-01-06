@@ -50,7 +50,27 @@ class AgreementController extends Controller
      */
     public function store(StoreAgreementRequest $request)
     {
-        dd($request);
+        $validateData = $request->validated();
+        $agreement = new  Agreement();
+
+        //New Renter OR Renter have acc
+        if ($validateData['user_id'] == null) {
+        } else {
+            $agreement->user_id = $validateData['user_id'];
+        }
+
+        $image = $request->file('photo');
+        if (isset($image)) {
+            $agreement->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/agreement/");
+        }
+
+        $agreement->room_id = $validateData['room_id'];
+        $agreement->price_guarantee = $validateData['price_guarantee'];
+        $agreement->start_date = $validateData['start_date'];
+        $agreement->end_date = $validateData['end_date'];
+        $agreement->save();
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('room.show', ['id' => $validateData['room_id'],]);
     }
 
     /**

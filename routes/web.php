@@ -59,8 +59,9 @@ Route::middleware([
         Route::post('/room/update', [RoomController::class, 'update'])->name('room.update');
         Route::get('/room/show/{id}', [RoomController::class, 'show'])->name('room.show');
 
-         //Agreement
-         Route::get('/agreement/create/{id}', [AgreementController::class, 'create'])->name('agreement.create');
+        //Agreement
+        Route::get('/agreement/create/{id}', [AgreementController::class, 'create'])->name('agreement.create');
+        Route::post('/agreement/store', [AgreementController::class, 'store'])->name('agreement.store');
     });
 
     // Renter

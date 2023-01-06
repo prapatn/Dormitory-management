@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -24,6 +24,12 @@ class AgreementForm extends Component
         return view('livewire.agreement-form');
     }
 
+    public function updatedRenter()
+    {
+        Cookie::queue('renter',  $this->renter, 10);
+
+    }
+
     public function updatedSearch()
     {
         if ($this->search != "") {
@@ -32,8 +38,14 @@ class AgreementForm extends Component
                 'like',
                 '%' . $this->search . '%'
             )->orWhere('phone', 'like', '%' . $this->search . '%')->limit(3)->get();
+            $this->user =  User::where(['role' => 'renter'])->where(
+                'email',
+                'like',
+                '%' . $this->search . '%'
+            )->orWhere('phone', 'like', '%' . $this->search . '%')->first();
         } else {
             $this->results = [];
+            $this->user = null;
         }
     }
 
