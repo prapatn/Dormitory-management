@@ -16,33 +16,38 @@
 
                 <div class="col-12">
                     @if ($this->renter == '')
+                    <input type="text" name="user_id" value="{{null}}" hidden>
                     <div class="mt-4">
                         <x-jet-label for="name" value="{{ __('ชื่อ-นามสกุล') }}" />
-                        <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
-                            required autofocus autocomplete="name" />
+                        <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus
+                            autocomplete="name" />
+                        <x-jet-input-error for="name" class="mt-2" />
                     </div>
                     <div class="mt-4">
                         <x-jet-label for="phone" value="{{ __('เบอร์โทรศัพท์') }}" />
-                        <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')"
-                            required />
+                        <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" autofocus required />
+                        <x-jet-input-error for="name" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="email" value="{{ __('อีเมล') }}" />
-                        <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email"
-                            :value="old('email')" required />
+                        <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" autofocus
+                            required />
+                        <x-jet-input-error for="name" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="password" value="{{ __('รหัสผ่าน') }}" />
                         <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                            autocomplete="new-password" />
+                            autofocus autocomplete="new-password" />
+                        <x-jet-input-error for="password" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="password_confirmation" value="{{ __('ยืนยันรหัสผ่าน') }}" />
                         <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password"
                             name="password_confirmation" required autocomplete="new-password" />
+                        <x-jet-input-error for="password_confirmation" class="mt-2" />
                     </div>
 
                     @elseif($this->renter=="0")

@@ -7,7 +7,9 @@ use App\Http\Requests\StoreAgreementRequest;
 use App\Http\Requests\UpdateAgreementRequest;
 use App\Models\Dormitory;
 use App\Models\Room;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AgreementController extends Controller
 {
@@ -54,7 +56,15 @@ class AgreementController extends Controller
         $agreement = new  Agreement();
 
         //New Renter OR Renter have acc
-        if ($validateData['user_id'] == null) {
+        if (!$validateData['user_id']) {
+            $user =  User::create([
+                'name' => $validateData['name'],
+                'role'  => 'renter',
+                'phone'     => $validateData['phone'],
+                'email' => $validateData['email'],
+                'password' => Hash::make($validateData['password']),
+            ]);
+            $agreement->user_id = $user->id;
         } else {
             $agreement->user_id = $validateData['user_id'];
         }

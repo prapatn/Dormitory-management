@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class StoreAgreementRequest extends FormRequest
 {
+    use PasswordValidationRules;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,9 +27,13 @@ class StoreAgreementRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => ['required', 'string', 'max:255'],
+            'phone'     => ['required', 'string', 'digits:10', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
             "photo" => ['mimes:png,jpg,jpeg'],
-            "room_id"=>[],
-            "user_id"=>[],
+            "room_id" => [],
+            "user_id" => [],
             "price_guarantee" => ['required', 'numeric'],
             'start_date' => ['required', 'date',],
             'end_date' => ['required', 'date', 'after:start_date'],
