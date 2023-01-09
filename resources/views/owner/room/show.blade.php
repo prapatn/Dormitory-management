@@ -95,12 +95,19 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="flex items-center justify-center mb-4">
+                                            @if ($checkAgreementNow)
+                                            <a href="#"
+                                                class="btn btn-warning inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2"
+                                                type="button">
+                                                {{ __('จัดกการสัญญาปัจจุบัน') }}</a>
+                                            @else
                                             <a href="{{ route('agreement.create', ['id'=>$room->id]) }}"
                                                 class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2"
                                                 type="button">
                                                 {{ __('เพิ่มสัญญาเช่าห้องพักใหม่') }}</a>
+                                            @endif
                                         </div>
-                                        {{-- @livewire('rooms-table-view', ['dorm_id' => $dormitory->id]) --}}
+                                        @livewire('agreement-history-table', ['room_id' =>$room->id])
                                     </div>
                                 </div>
                             </div>

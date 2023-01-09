@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\room;
 use App\Http\Requests\StoreroomRequest;
 use App\Http\Requests\UpdateroomRequest;
+use App\Models\Agreement;
 use App\Models\Dormitory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -95,12 +97,27 @@ class RoomController extends Controller
             'id' =>  $room->dorm_id,
             'user_id' => Auth::user()->id,
         ])->first();
-
+        $agreements = Agreement::where(['room_id' => $id])->get();
+        $checkAgreementNow =  $this->findAgreementNow($agreements);
         if (!$dormitory) {
             abort(404);
         }
-        return view('owner.room.show', compact('room'));
+        return view('owner.room.show', compact('room', 'checkAgreementNow'));
     }
+
+    public function findAgreementNow($agreements)
+    {
+        $check = false;
+        foreach ($agreements as $item) {
+            $check = Carbon::now()->between($item->start_date, $item->end_date);
+            if ($check) {
+
+                return $check;
+            }
+        }
+        return $check;
+    }
+
 
     /**
      * Show the form for editing the specified resource.

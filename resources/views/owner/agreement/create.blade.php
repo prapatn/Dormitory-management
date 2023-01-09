@@ -12,7 +12,6 @@
                 <div class="col-md-12">
                     <form action="{{ route('agreement.store') }}" method="post" enctype="multipart/form-data">
                         <input type="text" hidden name="room_id" value="{{ $room->id}}">
-                        {{-- {{Cookie::get('renter')}} --}}
                         @livewire('agreement-form', ['room'=>$room,'renter'=> request()->cookie('renter')])
                     </form>
                 </div>
