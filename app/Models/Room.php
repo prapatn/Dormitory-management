@@ -35,7 +35,7 @@ class Room extends Model
     {
         $agreements = Room::find($id)->agreement;
         foreach ($agreements as $item) {
-            $check = Carbon::now()->between($item->start_date, $item->end_date);
+            $check = Carbon::now()->isBefore($item->end_date);
             if ($check) {
                 return $item;
             }

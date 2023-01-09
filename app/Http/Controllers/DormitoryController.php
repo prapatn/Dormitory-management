@@ -37,6 +37,9 @@ class DormitoryController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
+            if (!$dormitory) {
+                abort(404);
+            }
             $photo = null;
             return view('owner.dormitories.payment', compact('dormitory', 'photo'));
         } catch (\Throwable $th) {
@@ -209,6 +212,9 @@ class DormitoryController extends Controller
                 'id' => $id,
                 'user_id' => Auth::user()->id,
             ])->first();
+            if (!$dormitory) {
+                abort(404);
+            }
             $dormitory->delete();
             session()->flash('Success', 'ลบข้อมูลสำเร็จ');
             return redirect()->route('dorm');

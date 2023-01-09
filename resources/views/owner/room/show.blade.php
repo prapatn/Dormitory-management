@@ -46,10 +46,9 @@
                                             <div
                                                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
                                                 <div class="mr-5" style=" text-align:center">
-                                                    @if ($agreement->image)
-                                                    <img src="{{ asset($agreement->image) }}"
-                                                        class="hover:shadow-lg rounded-md h-48 w-full object-cover rounded-b-none ">
-                                                    @endif
+
+                                                    <img src="{{ asset($agreement->image?$agreement->image : "images/agreement.png") }}"
+                                                    class="hover:shadow-lg rounded-md h-48 w-full  rounded-b-none ">
                                                 </div>
                                                 <div>
                                                     <h5 class="font-bold leading-6 text-gray-900 mt-2">

@@ -10,7 +10,6 @@
                     <select id="renter" class="form-control text-s" autofocus name="renter" wire:model="renter">
                         <option value="">ไม่มี</option>
                         <option value="0">มี</option>
-
                     </select>
                 </div>
 
@@ -26,14 +25,14 @@
                     <div class="mt-4">
                         <x-jet-label for="phone" value="{{ __('เบอร์โทรศัพท์') }}" />
                         <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" autofocus required />
-                        <x-jet-input-error for="name" class="mt-2" />
+                        <x-jet-input-error for="phone" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="email" value="{{ __('อีเมล') }}" />
                         <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" autofocus
                             required />
-                        <x-jet-input-error for="name" class="mt-2" />
+                        <x-jet-input-error for="email" class="mt-2" />
                     </div>
 
                     <div class="mt-4">

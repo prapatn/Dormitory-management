@@ -102,18 +102,17 @@ class RoomController extends Controller
         if (!$dormitory) {
             abort(404);
         }
-        if($agreement){
+        if ($agreement) {
             return view('owner.room.show', compact('room', 'agreement'));
-        }else{
+        } else {
             return view('owner.agreement.show', compact('room', 'agreement'));
         }
-
     }
 
     public function findAgreementNow($agreements)
     {
         foreach ($agreements as $item) {
-            $check = Carbon::now()->between($item->start_date, $item->end_date);
+            $check = Carbon::now()->isBefore($item->end_date);
             if ($check) {
                 return $item;
             }

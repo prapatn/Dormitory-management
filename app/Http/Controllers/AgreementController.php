@@ -74,6 +74,7 @@ class AgreementController extends Controller
             $agreement->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/agreement/");
         }
 
+        $agreement->status = "รอยืนยัน";
         $agreement->room_id = $validateData['room_id'];
         $agreement->price_guarantee = $validateData['price_guarantee'];
         $agreement->start_date = $validateData['start_date'];
@@ -98,12 +99,11 @@ class AgreementController extends Controller
             'id' =>  $room->dorm_id,
             'user_id' => Auth::user()->id,
         ])->first();
-        $agreements = Agreement::where(['room_id' => $id])->get();
-        $agreement = app('App\Http\Controllers\RoomController')->findAgreementNow($agreements);
         if (!$dormitory) {
             abort(404);
         }
-
+        $agreements = Agreement::where(['room_id' => $id])->get();
+        $agreement = app('App\Http\Controllers\RoomController')->findAgreementNow($agreements);
         return view('owner.agreement.show', compact('room', 'agreement'));
     }
 
