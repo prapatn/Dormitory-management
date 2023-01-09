@@ -21,7 +21,7 @@
                 <td>{{ $row->name }}</td>
                 <td>{{ $row->floor }}</td>
                 <td>{{ $row->price }}</td>
-                <td>{{$row->agreement_status?"ห้องไม่ว่าง":"ห้องว่าง" }}</td>
+                <td>{{$row->agreement_status }}</td>
                 <td style="text-align:right;">
                     <a href="{{ route('room.show',['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
                     <a href="{{ route('room.edit',['id'=>$row->id]) }}" class="btn btn-warning">แก้ไข</a>
