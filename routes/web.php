@@ -67,10 +67,9 @@ Route::middleware([
 
     // Renter
     Route::middleware(['roleChecker:renter'])->group(function () {
-
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
+        Route::get('/notification', function () {
+            return view('renter.notification.index');
+        })->name('notification');
     });
 
     // Route::get('/dash2', function () {
