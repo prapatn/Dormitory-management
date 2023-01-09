@@ -12,6 +12,11 @@ class AgreementHistoryTable extends Component
     protected $queryString = ['search'];
     public $search = '';
 
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $agreements = Agreement::where(['room_id' => $this->room_id])->orderBy('end_date', 'ASC')->paginate(10);

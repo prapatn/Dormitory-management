@@ -62,6 +62,7 @@ Route::middleware([
         //Agreement
         Route::get('/agreement/create/{id}', [AgreementController::class, 'create'])->name('agreement.create');
         Route::post('/agreement/store', [AgreementController::class, 'store'])->name('agreement.store');
+        Route::get('/agreement/show/{id}', [AgreementController::class, 'show'])->name('agreement.show');
     });
 
     // Renter

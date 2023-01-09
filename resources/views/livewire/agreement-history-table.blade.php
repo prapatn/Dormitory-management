@@ -41,4 +41,10 @@
         {{ $results->links() }}
     </div>
 </div>
+@else
+<div class="flex items-center justify-center">
+    <h5 class="font-semibold " style="color: red">
+        ห้องนี้ยังไม่มีข้อมูล</h5>
+</div>
+
 @endif

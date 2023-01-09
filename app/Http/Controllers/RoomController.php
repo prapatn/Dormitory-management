@@ -98,24 +98,27 @@ class RoomController extends Controller
             'user_id' => Auth::user()->id,
         ])->first();
         $agreements = Agreement::where(['room_id' => $id])->get();
-        $checkAgreementNow =  $this->findAgreementNow($agreements);
+        $agreement =  $this->findAgreementNow($agreements);
         if (!$dormitory) {
             abort(404);
         }
-        return view('owner.room.show', compact('room', 'checkAgreementNow'));
+        if($agreement){
+            return view('owner.room.show', compact('room', 'agreement'));
+        }else{
+            return view('owner.agreement.show', compact('room', 'agreement'));
+        }
+
     }
 
     public function findAgreementNow($agreements)
     {
-        $check = false;
         foreach ($agreements as $item) {
             $check = Carbon::now()->between($item->start_date, $item->end_date);
             if ($check) {
-
-                return $check;
+                return $item;
             }
         }
-        return $check;
+        return null;
     }
 
 

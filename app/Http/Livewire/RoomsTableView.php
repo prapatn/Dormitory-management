@@ -15,7 +15,7 @@ class RoomsTableView extends Component
     protected $queryString = ['search'];
     public $search = '';
 
-    public function updatingSearch()
+    public function updatedSearch()
     {
         $this->resetPage();
     }
@@ -25,6 +25,9 @@ class RoomsTableView extends Component
         $results =  Room::where('dorm_id', $this->dorm_id)
             ->where('name', 'like', '%' . $this->search . '%')->orderBy('name', 'ASC')
             ->paginate(10);
+        foreach ($results as $item) {
+            $item->agreement_status = $item->findAgreementNow($item->id);
+        }
         return view('livewire.rooms-table-view', ['rooms' => $rooms, 'results' => $results]);
     }
 

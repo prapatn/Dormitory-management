@@ -89,9 +89,22 @@ class AgreementController extends Controller
      * @param  \App\Models\Agreement  $agreement
      * @return \Illuminate\Http\Response
      */
-    public function show(Agreement $agreement)
+    public function show($id)
     {
-        //
+        $room = Room::where([
+            'id' => $id,
+        ])->first();
+        $dormitory = Dormitory::where([
+            'id' =>  $room->dorm_id,
+            'user_id' => Auth::user()->id,
+        ])->first();
+        $agreements = Agreement::where(['room_id' => $id])->get();
+        $agreement = app('App\Http\Controllers\RoomController')->findAgreementNow($agreements);
+        if (!$dormitory) {
+            abort(404);
+        }
+
+        return view('owner.agreement.show', compact('room', 'agreement'));
     }
 
     /**
