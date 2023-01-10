@@ -28,6 +28,12 @@ class Agreement extends Model
     {
         return $this->belongsTo(Room::class);
     }
+
+    public function dormitory($dorm_id)
+    {
+        return Dormitory::find($dorm_id)->first();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

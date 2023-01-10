@@ -14,14 +14,14 @@ class AuthController extends Controller
             if ($user->role == "owner") {
                 return redirect('dormitories');
             } else {
-                return redirect('dashboard');
+                return redirect()->route('agreement.noti.show');
             }
         } else {
             return redirect('auth.login');
         }
     }
 
-    public function saveImage($image,$upload_location)
+    public function saveImage($image, $upload_location)
     {
         // การเข้ารหัสภาพ
         $name_gen =  hexdec(uniqid()); // genarate ชื่อ

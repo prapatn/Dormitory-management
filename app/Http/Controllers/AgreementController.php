@@ -107,6 +107,24 @@ class AgreementController extends Controller
         return view('owner.agreement.show', compact('room', 'agreement'));
     }
 
+    public function notification_show()
+    {
+        $agreements = Agreement::where(['user_id' => Auth::user()->id])->latest()->paginate(10);
+        return view('renter.notification.index', compact('agreements'));
+    }
+
+    public function agreement_change_status($id, $status)
+    {
+        $agreement = Agreement::where(['user_id' => Auth::user()->id, 'id' => $id])->first();
+        if ($agreement) {
+            $agreement->status = $status;
+            $agreement->save();
+        } else {
+            abort(404);
+        }
+        return redirect()->back();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

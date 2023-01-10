@@ -21,7 +21,7 @@ class DormitoryController extends Controller
      */
     public function index()
     {
-        $dormitories = Dormitory::where('user_id', Auth::user()->id)->paginate(3);
+        $dormitories = Dormitory::where('user_id', Auth::user()->id)->paginate(6);
         return view('owner.dormitories.index', compact('dormitories'));
     }
 

@@ -5,14 +5,16 @@ namespace App\Http\Livewire;
 use App\Models\Agreement;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class AgreementHistoryTable extends Component
 {
+    use WithPagination;
     public $room_id;
     protected $queryString = ['search'];
     public $search = '';
 
-    public function updatedSearch()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
@@ -36,12 +38,13 @@ class AgreementHistoryTable extends Component
 
     public function checkDateBetween($start, $end)
     {
-        $check = Carbon::now()->between($start, $end);
 
-        if ($check) {
+        if (Carbon::now()->between($start, $end)) {
             return "ปัจจุบัน";
+        } else if (Carbon::now()->isBefore($start)) {
+            return "รอวันเริ่มสัญญา";
         } else {
-            "";
+            return "";
         }
     }
 }
