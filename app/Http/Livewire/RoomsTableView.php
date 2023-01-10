@@ -15,7 +15,7 @@ class RoomsTableView extends Component
     protected $queryString = ['search'];
     public $search = '';
 
-    public function updatedSearch()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
@@ -26,11 +26,7 @@ class RoomsTableView extends Component
             ->where('name', 'like', '%' . $this->search . '%')->orderBy('name', 'ASC')
             ->paginate(10);
         foreach ($results as $item) {
-            $agreement =  $item->findAgreementNow($item->id);
-            if ($agreement)
-                $item->agreement_status = $agreement->status;
-            else
-                $item->agreement_status = "ห้องว่าง";
+            $item->agreement_status = $item->agreementStatusCheck($item->id);
         }
         return view('livewire.rooms-table-view', ['rooms' => $rooms, 'results' => $results]);
     }

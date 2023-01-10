@@ -45,13 +45,6 @@
 
                                                     <td>
                                                         {{ $row->created_at->format('H:i น. d/m/Y') }}
-                                                        {{-- @if ($row->image)
-                                                        <img src="{{ asset($row->image) }}" alt="" width="200px"
-                                                            height="100px">
-                                                        @else
-                                                        <img src="{{ asset('images/buildings.png') }}" alt=""
-                                                            width="200px" height="100px">
-                                                        @endif --}}
                                                     </td>
                                                     <td>{{ $row->dormitory($row->room->dorm_id)->name}}</td>
                                                     <td>{{$row->room->name}}</td>

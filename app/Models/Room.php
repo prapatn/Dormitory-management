@@ -31,15 +31,16 @@ class Room extends Model
         return $this->hasMany(Agreement::class);
     }
 
-    public function findAgreementNow($id)
+    public function agreementStatusCheck($id)
     {
         $agreements = Room::find($id)->agreement;
         foreach ($agreements as $item) {
-            $check = Carbon::now()->isBefore($item->end_date);
-            if ($check) {
-                return $item;
+            if (Carbon::now()->between($item->start_date, $item->end_date)) {
+                return "อยู่ในสัญญา";
+            } else if (Carbon::now()->isBefore($item->end_date)) {
+                return "รอวันเริ่มสัญญา";
             }
         }
-        return null;
+        return "ห้องว่าง";
     }
 }

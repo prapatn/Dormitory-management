@@ -21,11 +21,14 @@
                 <td>{{ $row->user->name }}</td>
                 <td>{{date('d/m/Y', strtotime($row->start_date))}}</td>
                 <td>{{date('d/m/Y', strtotime($row->end_date)) }}</td>
-                <td>{{ $this->checkDateBetween($row->start_date,$row->end_date) }}</td>
+                <td>{{$row->status=="ยอมรับ"?$this->checkDateBetween($row->start_date,$row->end_date):$row->status }}
+                </td>
                 <td style="text-align:right;">
                     <a href="#" class="btn btn-primary">รายละเอียด</a>
+                    @if ($row->status=="รอยืนยัน")
                     <a href="#" class="btn btn-warning">แก้ไข</a>
                     <a href="#" class="btn btn-danger" onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
+                    @endif
                 </td>
             </tr>
             @endforeach

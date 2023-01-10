@@ -26,15 +26,19 @@
                                 ข้อมูลสัญญาปัจจุบัน
                             </div>
                             <div>
+                                @if ($agreement!=null)
+                                @if ($agreement->status=="รอยืนยัน")
                                 <a href="#"
                                     class="float-right sm border-2 border-transparent text-gray-600 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out">
                                     <i data-feather="edit-2" class="sm">
                                     </i>
                                 </a>
+                                @endif
                                 <a href="{{ route('agreement.show', ['id'=>$room->id]) }}" class="">
                                     <x-iconpark-historyquery-o
                                         class="h-8 w-8 float-right sm border-2 border-transparent text-gray-600 mr-4 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out" />
                                 </a>
+                                @endif
                             </div>
                         </div>
                         <div class="card-body">
@@ -46,9 +50,9 @@
                                             <div
                                                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
                                                 <div class="mr-5" style=" text-align:center">
-
-                                                    <img src="{{ asset($agreement->image?$agreement->image : "images/agreement.png") }}"
-                                                    class="hover:shadow-lg rounded-md h-48 w-full  rounded-b-none ">
+                                                    <img src="{{
+                                                        asset($agreement->image?$agreement->image : "images/agreement.png") }}"
+                                                            class="hover:shadow-lg rounded-md h-48 w-full  rounded-b-none ">
                                                 </div>
                                                 <div>
                                                     <h5 class="font-bold leading-6 text-gray-900 mt-2">
