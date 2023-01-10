@@ -67,9 +67,8 @@ Route::middleware([
 
     // Renter
     Route::middleware(['roleChecker:renter'])->group(function () {
-        Route::get('/notification', function () {
-            return view('renter.notification.index');
-        })->name('notification');
+        Route::get('/agreement/notification/show', [AgreementController::class, 'notification_show'])->name('agreement.noti.show');
+        Route::get('/agreement/status/{id}/{status}', [AgreementController::class, 'agreement_change_status'])->name('agreement.status');
     });
 
     // Route::get('/dash2', function () {

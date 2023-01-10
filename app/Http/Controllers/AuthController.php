@@ -14,7 +14,7 @@ class AuthController extends Controller
             if ($user->role == "owner") {
                 return redirect('dormitories');
             } else {
-                return redirect('notification');
+                return redirect()->route('agreement.noti.show');
             }
         } else {
             return redirect('auth.login');
