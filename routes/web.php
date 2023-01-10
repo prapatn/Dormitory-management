@@ -63,6 +63,9 @@ Route::middleware([
         Route::get('/agreement/create/{id}', [AgreementController::class, 'create'])->name('agreement.create');
         Route::post('/agreement/store', [AgreementController::class, 'store'])->name('agreement.store');
         Route::get('/agreement/show/{id}', [AgreementController::class, 'show'])->name('agreement.show');
+        Route::get('/agreement/edit/{id}', [AgreementController::class, 'edit'])->name('agreement.edit');
+        Route::get('/agreement/delete/{id}', [AgreementController::class, 'delete'])->name('agreement.delete');
+        Route::post('/agreement/update', [AgreementController::class, 'update'])->name('agreement.update');
     });
 
     // Renter

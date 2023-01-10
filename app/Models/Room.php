@@ -35,10 +35,15 @@ class Room extends Model
     {
         $agreements = Room::find($id)->agreement;
         foreach ($agreements as $item) {
-            if (Carbon::now()->between($item->start_date, $item->end_date)) {
-                return "อยู่ในสัญญา";
-            } else if (Carbon::now()->isBefore($item->end_date)) {
-                return "รอวันเริ่มสัญญา";
+            if ($item->status == "รอยืนยัน") {
+                return $item->status;
+            } else {
+                if (Carbon::now()->between($item->start_date, $item->end_date)) {
+
+                    return "อยู่ในสัญญา";
+                } else if (Carbon::now()->isBefore($item->end_date)) {
+                    return "รอวันเริ่มสัญญา";
+                }
             }
         }
         return "ห้องว่าง";

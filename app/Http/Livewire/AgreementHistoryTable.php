@@ -23,10 +23,9 @@ class AgreementHistoryTable extends Component
     {
         $agreements = Agreement::where(['room_id' => $this->room_id])->orderBy('end_date', 'ASC')->paginate(10);
         $results =  Agreement::where('room_id', $this->room_id)
-            ->join('users', function ($join) {
-                $join->on('agreements.user_id', '=', 'users.id')
-                    ->where('users.name', 'like', '%' . $this->search . '%');
-            })
+            ->leftJoin('users', 'users.id', '=', 'agreements.user_id')
+            ->where('users.name', 'like', '%' . $this->search . '%')
+            ->select('agreements.*')
             ->orderBy('end_date', 'ASC')
             ->paginate(10);
         return view('livewire.agreement-history-table', ['agreements' => $agreements, 'results' => $results]);
