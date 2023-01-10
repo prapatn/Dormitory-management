@@ -4,16 +4,42 @@
         @csrf {{-- ป้องกันการ Hack ด้วย การป้อน Script --}}
         <div class="flex items-center justify-center mt-4">
             <div class="row justify-center">
-                <h4 class="font-semibold">ข้อมูลผู้เช่า</h4>
-                <div class="col-span-6 sm:col-span-4  mt-4">
-                    <x-jet-label for="renter" value="{{ __('ผู้เช่า มี/ไม่มี บัญชีในระบบ') }}" />
-                    <select id="renter" class="form-control text-s" autofocus name="renter" wire:model="renter">
-                        <option value="">ไม่มี</option>
-                        <option value="0">มี</option>
-                    </select>
-                </div>
-
                 <div class="col-12">
+                    <h4 class="font-semibold">ข้อมูลผู้เช่า</h4>
+                    @if ($this->edit)
+                    @if ($this->user)
+                    <div class="  items-center justify-center">
+                        <div class=" justify-center">
+                            <div class="">
+                                <div class="flex items-center justify-center">
+                                    <div class="mt-4 items-center">
+                                        <img src="{{empty(!$this->user->profile_photo_url) ? $this->user->profile_photo_url : asset($this->user->profile_photo_url) }} "
+                                            width='200' height='200'>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <x-jet-label value="{{ __('ชื่อผู้เช่า') }}" />
+                                    <x-jet-input class="form-control block mt-1 w-full"
+                                        value='{{$this->user->name ." (".$this->user->email ." ". $this->user->phone .") "}}'
+                                        disabled />
+                                    <input type="text" class="hidden" value="{{$this->user->id}}" name="user_id"
+                                        id="user_id">
+                                    <x-jet-input-error for="user_id" class="mt-2" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    @else
+                    <div class="col-span-6 sm:col-span-4  mt-4">
+                        <x-jet-label for="renter" value="{{ __('ผู้เช่า มี/ไม่มี บัญชีในระบบ') }}" />
+                        <select id="renter" class="form-control text-s" autofocus name="renter" wire:model="renter">
+                            <option value="">ไม่มี</option>
+                            <option value="0">มี</option>
+                        </select>
+                    </div>
+
+
                     @if ($this->renter == '')
                     <input type="text" name="user_id" value="{{null}}" hidden>
                     <div class="mt-4">
@@ -68,7 +94,6 @@
                             </div>
                         </div>
                         @endif
-
                     </div>
                     @if ($this->user)
                     <div class="  items-center justify-center">
@@ -94,9 +119,8 @@
                         </div>
                     </div>
                     @endif
-
                     @endif
-
+                    @endif
                     <h4 class="font-semibold mt-4">ข้อมูลสัญญาเช่า</h4>
 
                     <h5>ห้อง : {{ $this->room->name}}</h5>
@@ -136,21 +160,21 @@
                     <div class="mt-4">
                         <x-jet-label for="price_guarantee" value="{{ __('ค่าประกัน') }}" />
                         <x-jet-input id="price_guarantee" class="block mt-1 w-full" type="number" name="price_guarantee"
-                            :value="old('price_guarantee')" required autofocus autocomplete="price_guarantee" />
+                            wire:model='price_guarantee' required autofocus autocomplete="price_guarantee" />
                         <x-jet-input-error for="price_guarantee" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="start_date" value="{{ __('เข้าอยู่') }}" />
                         <x-jet-input id="start_date" class="block mt-1 w-full" type="date" name="start_date"
-                            :value="old('start_date')" required />
+                            wire:model='start_date' required />
                         <x-jet-input-error for="start_date" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="end_date" value="{{ __('สิ้นสุด') }}" />
                         <x-jet-input id="end_date" class="block mt-1 w-full" type="date" name="end_date"
-                            :value="old('end_date')" required />
+                            wire:model='end_date' required />
                         <x-jet-input-error for="end_date" class="mt-2" />
                     </div>
 

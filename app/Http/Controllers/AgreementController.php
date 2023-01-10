@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateAgreementRequest;
 use App\Models\Dormitory;
 use App\Models\Room;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -131,9 +132,28 @@ class AgreementController extends Controller
      * @param  \App\Models\Agreement  $agreement
      * @return \Illuminate\Http\Response
      */
-    public function edit(Agreement $agreement)
+    public function edit($id)
     {
-        //
+        try {
+            $agreement = Agreement::where([
+                'id' => $id,
+            ])->first();
+            $room = Room::where([
+                'id' => $agreement->room_id,
+            ])->first();
+            $dormitory = Dormitory::where([
+                'id' =>  $room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+
+            if (!$dormitory) {
+                abort(404);
+            } else {
+                return view('owner.agreement.edit', compact('agreement'));
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
     }
 
     /**
@@ -143,9 +163,27 @@ class AgreementController extends Controller
      * @param  \App\Models\Agreement  $agreement
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAgreementRequest $request, Agreement $agreement)
+    public function update(UpdateAgreementRequest $request)
     {
-        //
+        $validateData = $request->validated();
+        $agreement = Agreement::find($validateData['id']);
+        $image = $request->file('photo');
+        if (isset($image)) {
+            //ลบภาพเก่า
+            $old_img = $agreement->image;
+            if ($old_img) {
+                unlink($old_img);
+            }
+            $agreement->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
+        }
+        $agreement->price_guarantee = $validateData['price_guarantee'];
+        $agreement->start_date = $validateData['start_date'];
+        $agreement->end_date = $validateData['end_date'];
+        $agreement->updated_at = Carbon::now('GMT+7');
+
+        $agreement->save();
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('agreement.show', ['id' => $agreement->room_id]);
     }
 
     /**
@@ -157,5 +195,30 @@ class AgreementController extends Controller
     public function destroy(Agreement $agreement)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        try {
+            $agreement = Agreement::where([
+                'id' => $id,
+            ])->first();
+            $room = Room::where([
+                'id' => $agreement->room_id,
+            ])->first();
+            $dormitory = Dormitory::where([
+                'id' =>  $room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            if (!$dormitory) {
+                abort(404);
+            } else {
+                $agreement->delete();
+                session()->flash('Success', 'ลบข้อมูลสำเร็จ');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
     }
 }

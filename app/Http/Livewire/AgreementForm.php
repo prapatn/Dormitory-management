@@ -17,6 +17,10 @@ class AgreementForm extends Component
     public $nameUser;
     public $search, $user, $results;
 
+    public $edit;
+    public $agreement;
+    public $price_guarantee;
+
     protected $listeners = ['selectUser'];
 
     public function render()
@@ -24,10 +28,19 @@ class AgreementForm extends Component
         return view('livewire.agreement-form');
     }
 
+    public function mount()
+    {
+        if ($this->agreement) {
+            $this->dbphoto = $this->agreement->image;
+            $this->price_guarantee = $this->agreement->price_guarantee;
+            $this->start_date = $this->agreement->start_date;
+            $this->end_date = $this->agreement->end_date;
+        }
+    }
+
     public function updatedRenter()
     {
         Cookie::queue('renter',  $this->renter, 10);
-
     }
 
     public function updatedSearch()
