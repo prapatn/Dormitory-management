@@ -31,41 +31,54 @@
                                         <table class="table table-striped mt-2">
                                             <thead class="table-dark">
                                                 <tr>
-                                                    <th>สร้างเมื่อ</th>
                                                     <th>หอพัก</th>
                                                     <th>ห้อง</th>
                                                     <th>ชั้น</th>
+                                                    <th>ช่วงวันที่เข้าพัก</th>
                                                     <th>ค่าเช่า/ค่าประกัน</th>
+                                                    <th></th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($agreements as $row)
                                                 <tr>
-
-                                                    <td>
-                                                        {{ $row->created_at->format('H:i น. d/m/Y') }}
+                                                    <td style="vertical-align: middle;">
+                                                        {{$row->room->dormitory->name}}</td>
+                                                    <td style="vertical-align: middle;">{{$row->room->name}}</td>
+                                                    <td style="vertical-align: middle;">{{$row->room->floor}}</td>
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $row->start_date->format('d/m/Y') }} -
+                                                        {{$row->end_date->format('d/m/Y')}}
                                                     </td>
-                                                    <td>{{ $row->dormitory($row->room->dorm_id)->name}}</td>
-                                                    <td>{{$row->room->name}}</td>
-                                                    <td>{{$row->room->floor}}</td>
-                                                    <td>{{$row->room->price}}/{{$row->price_guarantee}}</td>
-                                                    <td>
-                                                        @if ($row->status=="รอยืนยัน")
-                                                        <a href="{{ route('agreement.status', ['id'=>$row->id,'status'=>"
-                                                            ยอมรับ"]) }}" class="btn btn-success"
-                                                            onclick="return confirm('ต้องการยอมรับสัญญาหรือไม่')">ยอมรับสัญญา
-                                                        </a>
-                                                        <a href="{{ route('agreement.status', ['id'=>$row->id,'status'=>"
-                                                            ปฏิเสธ"]) }}" class="btn btn-danger"
-                                                            onclick="return confirm('ต้องการไม่ยอมรับนี้หรือไม่')">ปฏิเสธสัญญา
-                                                        </a>
-                                                        @else
+                                                    <td style="vertical-align: middle;">
+                                                        {{$row->room->price}}/{{$row->price_guarantee}}
+                                                    </td>
+                                                    @if ($row->status!="รอยืนยัน")
+                                                    <td style="vertical-align: middle;">
                                                         <div class="font-semibold ">
                                                             {{$row->status}}
                                                         </div>
-                                                        @endif
+                                                    </td>
+                                                    @endif
+                                                    <td style="vertical-align: middle;">
+                                                        <div class="flex">
+                                                            <a href="#" class="btn btn-primary">รายละเอียด
+                                                            </a>
+                                                            @if ($row->status=="รอยืนยัน")
+                                                            <a href=" {{ route('agreement.status',
+                                                            ['id'=>$row->id,'status'=>" ยอมรับ"]) }}"
+                                                                class="btn btn-success" onclick="return
+                                                            confirm('ต้องการยอมรับสัญญานี้หรือไม่')">ยอมรับสัญญา
+                                                            </a>
 
+                                                            <a href=" {{ route('agreement.status',
+                                                            ['id'=>$row->id,'status'=>" ปฏิเสธ"]) }}"
+                                                                class="btn btn-danger" onclick="return
+                                                            confirm('ต้องการไม่ยอมรับนี้หรือไม่')">ปฏิเสธสัญญา
+                                                            </a>
+                                                            @endif
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -80,7 +93,6 @@
                                             <h5 class="font-semibold " style="color: red">
                                                 ยังไม่มีข้อมูลสัญญา</h5>
                                         </div>
-
                                         @endif
                                     </div>
 

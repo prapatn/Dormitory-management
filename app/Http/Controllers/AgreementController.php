@@ -118,7 +118,7 @@ class AgreementController extends Controller
     {
         $agreement = Agreement::where(['user_id' => Auth::user()->id, 'id' => $id])->first();
         if ($agreement) {
-            $agreement->status = $status;
+            $agreement->status = trim($status);
             $agreement->save();
         } else {
             abort(404);

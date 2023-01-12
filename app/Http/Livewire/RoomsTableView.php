@@ -26,7 +26,7 @@ class RoomsTableView extends Component
             ->where('name', 'like', '%' . $this->search . '%')->orderBy('name', 'ASC')
             ->paginate(10);
         foreach ($results as $item) {
-            $item->agreement_status = $item->agreementStatusCheck($item->id);
+            $item->agreement_status = $item->agreementStatusCheck();
         }
         return view('livewire.rooms-table-view', ['rooms' => $rooms, 'results' => $results]);
     }

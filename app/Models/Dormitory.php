@@ -29,6 +29,11 @@ class Dormitory extends Model
         'payment_image'
     ];
 
+    public function room()
+    {
+        return $this->hasMany(Room::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -48,10 +53,6 @@ class Dormitory extends Model
         return $fullAddress;
     }
 
-    public function room()
-    {
-        return $this->hasMany(Room::class);
-    }
 
     // public function province()
     // {
