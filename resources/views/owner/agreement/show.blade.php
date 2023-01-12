@@ -98,9 +98,7 @@
                                                             type="button">
                                                             {{ __('กลับ') }}</a>
                                                     </div>
-
                                                 </div>
-
                                                 @endif
                                             </div>
                                         </div>

@@ -108,7 +108,7 @@ class AgreementController extends Controller
         $agreement = Agreement::where([
             'id' => $id,
         ])->first();
-        if (Auth::user()->status == 'owner') {
+        if (Auth::user()->role == 'owner') {
             $dormitory = Dormitory::where([
                 'id' =>  $agreement->room->dormitory->id,
                 'user_id' => Auth::user()->id,

@@ -27,6 +27,11 @@ class Agreement extends Model
 
     protected $dates = ['start_date', 'end_date'];
 
+    public function bill()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
     public function room()
     {
         return $this->belongsTo(Room::class);
