@@ -34,7 +34,7 @@
                                     </i>
                                 </a>
                                 @endif
-                                <a href="{{ route('agreement.show', ['id'=>$room->id]) }}" class="">
+                                <a href="{{ route('agreement.index', ['id'=>$room->id]) }}" class="">
                                     <x-iconpark-historyquery-o
                                         class="h-8 w-8 float-right sm border-2 border-transparent text-gray-600 mr-4 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out" />
                                 </a>

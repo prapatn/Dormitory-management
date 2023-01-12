@@ -105,7 +105,7 @@ class RoomController extends Controller
         if ($agreement) {
             return view('owner.room.show', compact('room', 'agreement'));
         } else {
-            return view('owner.agreement.show', compact('room', 'agreement'));
+            return view('owner.agreement.index', compact('room', 'agreement'));
         }
     }
 

@@ -63,7 +63,8 @@
                                                     @endif
                                                     <td style="vertical-align: middle;">
                                                         <div class="flex">
-                                                            <a href="#" class="btn btn-primary">รายละเอียด
+                                                            <a href="{{ route('agreement.show', ['id'=>$row->id]) }}"
+                                                                class="btn btn-primary">รายละเอียด
                                                             </a>
                                                             @if ($row->status=="รอยืนยัน")
                                                             <a href=" {{ route('agreement.status',
@@ -103,8 +104,6 @@
 
                 </div>
             </div>
-
-
         </div>
     </div>
 </x-app-layout>

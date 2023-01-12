@@ -62,7 +62,7 @@ Route::middleware([
         //Agreement
         Route::get('/agreement/create/{id}', [AgreementController::class, 'create'])->name('agreement.create');
         Route::post('/agreement/store', [AgreementController::class, 'store'])->name('agreement.store');
-        Route::get('/agreement/show/{id}', [AgreementController::class, 'show'])->name('agreement.show');
+        Route::get('/agreement/index/{id}', [AgreementController::class, 'index'])->name('agreement.index');
         Route::get('/agreement/edit/{id}', [AgreementController::class, 'edit'])->name('agreement.edit');
         Route::get('/agreement/delete/{id}', [AgreementController::class, 'delete'])->name('agreement.delete');
         Route::post('/agreement/update', [AgreementController::class, 'update'])->name('agreement.update');
@@ -72,6 +72,10 @@ Route::middleware([
     Route::middleware(['roleChecker:renter'])->group(function () {
         Route::get('/agreement/notification/show', [AgreementController::class, 'notification_show'])->name('agreement.noti.show');
         Route::get('/agreement/status/{id}/{status}', [AgreementController::class, 'agreement_change_status'])->name('agreement.status');
+    });
+
+    Route::middleware(['roleChecker:renter,owner'])->group(function () {
+        Route::get('/agreement/show/{id}', [AgreementController::class, 'show'])->name('agreement.show');
     });
 
     // Route::get('/dash2', function () {

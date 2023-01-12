@@ -24,7 +24,7 @@
                 <td>{{$row->status=="ยอมรับ"?$this->checkDateBetween($row->start_date,$row->end_date):$row->status }}
                 </td>
                 <td style="text-align:right;">
-                    <a href="#" class="btn btn-primary">รายละเอียด</a>
+                    <a href="{{ route('agreement.show', ['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
                     @if ($row->status=="รอยืนยัน")
                     <a href="{{ route('agreement.edit', ['id'=>$row->id]) }}" class="btn btn-warning">แก้ไข</a>
                     <a href="{{ route('agreement.delete', ['id'=>$row->id]) }}" class="btn btn-danger"

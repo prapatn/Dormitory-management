@@ -19,9 +19,21 @@ class AgreementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $room = Room::where([
+            'id' => $id,
+        ])->first();
+        $dormitory = Dormitory::where([
+            'id' =>  $room->dorm_id,
+            'user_id' => Auth::user()->id,
+        ])->first();
+        if (!$dormitory) {
+            abort(404);
+        }
+        $agreements = Agreement::where(['room_id' => $id])->get();
+        $agreement = app('App\Http\Controllers\RoomController')->findAgreementNow($agreements);
+        return view('owner.agreement.index', compact('room', 'agreement'));
     }
 
     /**
@@ -93,19 +105,23 @@ class AgreementController extends Controller
      */
     public function show($id)
     {
-        $room = Room::where([
+        $agreement = Agreement::where([
             'id' => $id,
         ])->first();
-        $dormitory = Dormitory::where([
-            'id' =>  $room->dorm_id,
-            'user_id' => Auth::user()->id,
-        ])->first();
-        if (!$dormitory) {
-            abort(404);
+        if (Auth::user()->status == 'owner') {
+            $dormitory = Dormitory::where([
+                'id' =>  $agreement->room->dormitory->id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            if (!$dormitory) {
+                abort(404);
+            }
+        } else {
+            if (Auth::user()->id !=  $agreement->user_id) {
+                abort(404);
+            }
         }
-        $agreements = Agreement::where(['room_id' => $id])->get();
-        $agreement = app('App\Http\Controllers\RoomController')->findAgreementNow($agreements);
-        return view('owner.agreement.show', compact('room', 'agreement'));
+        return view('owner.agreement.show', compact('agreement'));
     }
 
     public function notification_show()

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,5 +34,20 @@ class Agreement extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function agreementShowStatus()
+    {
+        if ($this->status == "รอยืนยัน" || $this->status == "ปฏิเสธ") {
+            return $this->status;
+        } else if ($this->status == "ยอมรับ") {
+            if (Carbon::now()->between($this->start_date, $this->end_date)) {
+                return "อยู่ในสัญญา";
+            } else if (Carbon::now()->isBefore($this->end_date)) {
+                return "รอวันเริ่มสัญญา";
+            } else {
+                return "สิ้นสุดสัญญา";
+            }
+        }
     }
 }
