@@ -23,7 +23,7 @@ class Room extends Model
 
     public function dormitory()
     {
-        return $this->belongsTo(Dormitory::class);
+        return $this->belongsTo(Dormitory::class, 'dorm_id', 'id');
     }
 
     public function agreement()
@@ -31,15 +31,14 @@ class Room extends Model
         return $this->hasMany(Agreement::class);
     }
 
-    public function agreementStatusCheck($id)
+    public function agreementStatusCheck()
     {
-        $agreements = Room::find($id)->agreement;
+        $agreements = $this->agreement;
         foreach ($agreements as $item) {
             if ($item->status == "รอยืนยัน") {
                 return $item->status;
-            } else {
+            } else if ($item->status == "ยอมรับ") {
                 if (Carbon::now()->between($item->start_date, $item->end_date)) {
-
                     return "อยู่ในสัญญา";
                 } else if (Carbon::now()->isBefore($item->end_date)) {
                     return "รอวันเริ่มสัญญา";
