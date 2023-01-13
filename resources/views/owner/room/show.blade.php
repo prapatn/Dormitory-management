@@ -70,15 +70,6 @@
                                                     <h6>วันสิ้นสุดสัญญา : {{date('d/m/Y',
                                                         strtotime($agreement->end_date))}}
                                                     </h6>
-                                                    <h6>สร้างเมื่อ : {{
-                                                        $agreement->created_at->format('d/m/Y')
-                                                        }}
-                                                    </h6>
-                                                    <h6>อัพเดทล่าสุด :
-                                                        {{
-                                                        $agreement->updated_at->format('H:i น. d/m/Y')
-                                                        }}
-                                                    </h6>
                                                 </div>
                                             </div>
                                             @else
@@ -96,6 +87,7 @@
                 </div>
             </div>
 
+
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-4">
                 {{-- Table --}}
                 <div class="col-md-12">
@@ -105,6 +97,18 @@
                             <div class="py-6">
                                 <div class="container">
                                     <div class="row">
+                                        <div class="flex items-center justify-center mb-2 px-20">
+                                            @if ($agreement->status=="ยอมรับ")
+                                            <a href="{{ route('bill.create', ['id'=>$agreement->id]) }}"
+                                                class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold"
+                                                type="button">
+                                                {{ __('เพิ่มบิลค่าเช่า') }}
+                                            </a>
+                                            @else
+                                            <h5 class="font-semibold " style="color: red">
+                                                รอการยืนยันสัญญาจากผู้เช่า</h5>
+                                            @endif
+                                        </div>
                                         {{-- @livewire('rooms-table-view', ['dorm_id' => $dormitory->id]) --}}
                                     </div>
                                 </div>

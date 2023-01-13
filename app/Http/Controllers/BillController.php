@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\bill;
 use App\Http\Requests\StorebillRequest;
 use App\Http\Requests\UpdatebillRequest;
+use App\Models\Agreement;
+use App\Models\Dormitory;
+use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
 {
@@ -23,9 +26,19 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $agreement = Agreement::where([
+            'id' =>  $id,
+        ])->first();
+        $dormitory = Dormitory::where([
+            'id' =>  $agreement->room->dorm_id,
+            'user_id' => Auth::user()->id,
+        ])->first();
+        if (!$dormitory) {
+            abort(404);
+        }
+        return view('owner.bill.create', compact('agreement'));
     }
 
     /**

@@ -36,6 +36,7 @@ class StoreAgreementRequest extends FormRequest
             "room_id" => [],
             "user_id" => [],
             "price_guarantee" => ['required', 'numeric'],
+            "penalty_per_day" => ['required', 'numeric'],
             'start_date' => ['required', 'date',],
             'end_date' => ['required', 'date', 'after:start_date',],
         ];

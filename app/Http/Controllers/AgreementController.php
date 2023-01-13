@@ -90,6 +90,7 @@ class AgreementController extends Controller
         $agreement->status = "รอยืนยัน";
         $agreement->room_id = $validateData['room_id'];
         $agreement->price_guarantee = $validateData['price_guarantee'];
+        $agreement->penalty_per_day = $validateData['penalty_per_day'];
         $agreement->start_date = $validateData['start_date'];
         $agreement->end_date = $validateData['end_date'];
         $agreement->save();
@@ -193,6 +194,7 @@ class AgreementController extends Controller
             $agreement->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
         }
         $agreement->price_guarantee = $validateData['price_guarantee'];
+        $agreement->penalty_per_day = $validateData['penalty_per_day'];
         $agreement->start_date = $validateData['start_date'];
         $agreement->end_date = $validateData['end_date'];
         $agreement->updated_at = Carbon::now('GMT+7');

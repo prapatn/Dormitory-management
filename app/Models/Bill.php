@@ -17,9 +17,9 @@ class Bill extends Model
         'agreement_id',
         'status',
         'pay_last_date',
-        'penalty_per_day',
         'electricity_unit',
         'pay_other',
+        "image",
     ];
 
     protected $dates = ['pay_last_date'];

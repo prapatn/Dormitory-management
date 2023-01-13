@@ -20,6 +20,7 @@ class AgreementForm extends Component
     public $edit;
     public $agreement;
     public $price_guarantee;
+    public $penalty_per_day;
 
     protected $listeners = ['selectUser'];
 
@@ -33,8 +34,9 @@ class AgreementForm extends Component
         if ($this->agreement) {
             $this->dbphoto = $this->agreement->image;
             $this->price_guarantee = $this->agreement->price_guarantee;
-            $this->start_date = $this->agreement->start_date;
-            $this->end_date = $this->agreement->end_date;
+            $this->start_date = $this->agreement->start_date->format('Y-m-d');
+            $this->end_date = $this->agreement->end_date->format('Y-m-d');
+            $this->penalty_per_day = $this->agreement->penalty_per_day;
         }
     }
 

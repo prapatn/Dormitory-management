@@ -112,7 +112,7 @@ class RoomController extends Controller
     public function findAgreementNow($agreements)
     {
         foreach ($agreements as $item) {
-            if ($item->status == 'ยอมรับ') {
+            if ($item->status == 'ยอมรับ' ||$item->status == 'รอยืนยัน') {
                 $check = Carbon::now()->isBefore($item->end_date);
                 if ($check) {
                     return $item;

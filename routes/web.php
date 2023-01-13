@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\RoomController;
 use App\Providers\RouteServiceProvider;
@@ -66,6 +67,9 @@ Route::middleware([
         Route::get('/agreement/edit/{id}', [AgreementController::class, 'edit'])->name('agreement.edit');
         Route::get('/agreement/delete/{id}', [AgreementController::class, 'delete'])->name('agreement.delete');
         Route::post('/agreement/update', [AgreementController::class, 'update'])->name('agreement.update');
+
+        //Bill
+        Route::get('/bill/create/{id}', [BillController::class, 'create'])->name('bill.create');
     });
 
     // Renter

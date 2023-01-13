@@ -165,16 +165,23 @@
                     </div>
 
                     <div class="mt-4">
+                        <x-jet-label for="penalty_per_day" value="{{ __('ค่าปรับ/วัน (กรณีจ่ายค่าเช่าช้า)') }}" />
+                        <x-jet-input id="penalty_per_day" class="block mt-1 w-full" type="number" name="penalty_per_day"
+                            wire:model='penalty_per_day' required autofocus autocomplete="penalty_per_day" />
+                        <x-jet-input-error for="penalty_per_day" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
                         <x-jet-label for="start_date" value="{{ __('เข้าอยู่') }}" />
                         <x-jet-input id="start_date" class="block mt-1 w-full" type="date" name="start_date"
-                            wire:model='start_date' required />
+                            wire:model='start_date' autofocus required />
                         <x-jet-input-error for="start_date" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
                         <x-jet-label for="end_date" value="{{ __('สิ้นสุด') }}" />
                         <x-jet-input id="end_date" class="block mt-1 w-full" type="date" name="end_date"
-                            wire:model='end_date' required />
+                            wire:model='end_date' autofocus required />
                         <x-jet-input-error for="end_date" class="mt-2" />
                     </div>
 

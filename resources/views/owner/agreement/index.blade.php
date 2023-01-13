@@ -71,15 +71,6 @@
                                                         <h6>วันสิ้นสุดสัญญา : {{date('d/m/Y',
                                                             strtotime($agreement->end_date))}}
                                                         </h6>
-                                                        <h6>สร้างเมื่อ : {{
-                                                            $agreement->created_at->format('d/m/Y')
-                                                            }}
-                                                        </h6>
-                                                        <h6>อัพเดทล่าสุด :
-                                                            {{
-                                                            $agreement->updated_at->format('H:i น. d/m/Y')
-                                                            }}
-                                                        </h6>
                                                     </div>
                                                 </div>
                                                 @else

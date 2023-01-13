@@ -23,6 +23,7 @@ class Agreement extends Model
         'price_other',
         'image',
         'status',
+        "penalty_per_day",
     ];
 
     protected $dates = ['start_date', 'end_date'];
