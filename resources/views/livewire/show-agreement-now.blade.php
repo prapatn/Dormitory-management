@@ -61,6 +61,14 @@
                                             <h6>วันสิ้นสุดสัญญา : {{date('d/m/Y',
                                                 strtotime($agreement->end_date))}}
                                             </h6>
+                                            <h6>สถานะ :
+                                                {{
+                                                $agreement->agreementShowStatus()
+                                                }}
+                                                @if ($agreement->agreementShowStatus()=="อยู่ในสัญญา")
+                                                ({{Carbon\Carbon::now()->format('d/m/Y')}})
+                                                @endif
+                                            </h6>
                                         </div>
                                     </div>
                                     @else

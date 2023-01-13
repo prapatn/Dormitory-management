@@ -38,34 +38,34 @@
                 <div class="col">
                     <div class="form-group mt-4">
                         <x-jet-label for="electricity_unit_last" value="{{ __('หน่วยไฟฟ้าเดือนที่แล้ว') }}" />
-                        <input type="text" name="electricity_unit_last" class="form-control" id="electricity_unit_last"
-                            wire:model='electricity_unit_last' autofocus required {{ $this->electricity_unit_last ==
+                        <input type="number" name="electricity_unit_last" class="form-control"
+                            id="electricity_unit_last" autofocus required {{ $this->electricity_unit_last ==
                         null ?"": 'disabled' }}>
                         <x-jet-input-error for="electricity_unit_last" class="mt-2" />
                     </div>
                     <div class="form-group mt-4">
                         <x-jet-label for="electricity_unit" value="{{ __('หน่วยไฟฟ้า') }}" />
-                        <input type="text" name="electricity_unit" class="form-control" id="electricity_unit"
+                        <input type="number" name="electricity_unit" class="form-control" id="electricity_unit"
                             wire:model='electricity_unit' autofocus required>
                         <x-jet-input-error for="electricity_unit" class="mt-2" />
                     </div>
                     <div class="form-group mt-4">
                         <x-jet-label for="water_unit_last" value="{{ __('หน่วยน้ำเดือนที่แล้ว') }}" />
-                        <input type="text" name="water_unit_last" class="form-control" id="water_unit_last"
-                            wire:model='water_unit_last' autofocus required {{ $this->water_unit_last== null ?"":
+                        <input type="number" name="water_unit_last" class="form-control" id="water_unit_last" autofocus
+                            required {{ $this->water_unit_last== null ?"":
                         'disabled' }}>
                         <x-jet-input-error for="water_unit_last" class="mt-2" />
                     </div>
                     <div class="form-group mt-4">
                         <x-jet-label for="water_unit" value="{{ __('หน่วยน้ำ') }}" />
-                        <input type="text" name="water_unit" class="form-control" id="water_unit"
+                        <input type="number" name="water_unit" class="form-control" id="water_unit"
                             wire:model='water_unit' autofocus required>
                         <x-jet-input-error for="water_unit" class="mt-2" />
                     </div>
 
                     <div class="form-group mt-4">
                         <x-jet-label for="pay_other" value="{{ __('ค่าใช้จ่ายอื่นๆ (ถ้ามี )') }}" />
-                        <input type="text" name="pay_other" class="form-control" id="pay_other"
+                        <input type="number" name="pay_other" class="form-control" id="pay_other"
                             wire:model='pay_other'>
                         <x-jet-input-error for="pay_other" class="mt-2" />
                     </div>
@@ -74,7 +74,7 @@
                         <x-jet-label for="pay_last_date"
                             value="{{ __('วันสุดท้ายก่อนมีค่าปรับ ( '. $this->agreement->penalty_per_day.' บาท/วัน )') }}" />
                         <x-jet-input id="pay_last_date" class="block mt-1 w-full" type="date" name="pay_last_date"
-                            wire:model='pay_last_date' required  />
+                            wire:model='pay_last_date' required />
                         <x-jet-input-error for="pay_last_date" class="mt-2" />
                     </div>
                 </div>

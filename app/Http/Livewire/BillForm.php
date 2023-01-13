@@ -12,7 +12,9 @@ class BillForm extends Component
     use WithFileUploads;
 
     public $agreement, $bill, $photo, $dbphoto;
+    public $electricity_unit, $water_unit;
     public $electricity_unit_last, $water_unit_last, $pay_other, $pay_last_date;
+
     public function render()
     {
         return view('livewire.bill-form');

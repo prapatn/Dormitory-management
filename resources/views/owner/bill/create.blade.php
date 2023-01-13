@@ -10,8 +10,9 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
                 <div class="col-md-12">
-                    <form action="#" method="post" enctype="multipart/form-data">
-                        <input type="text" hidden name="id" value="{{$agreement->id}}">
+                    <form action="{{ route('bill.store') }}" method="post" enctype="multipart/form-data">
+                        <input type="text" hidden name="agreement_id" value="{{$agreement->id}}">
+                        <input type="text" hidden name="room_id" value="{{$agreement->room->id}}">
                         @livewire('bill-form', ['agreement'=>$agreement])
                     </form>
                 </div>

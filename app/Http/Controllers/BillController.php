@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\bill;
-use App\Http\Requests\StorebillRequest;
-use App\Http\Requests\UpdatebillRequest;
+use App\Http\Requests\StoreBillRequest;
+use App\Http\Requests\UpdateBillRequest;
 use App\Models\Agreement;
 use App\Models\Dormitory;
 use Illuminate\Support\Facades\Auth;
@@ -44,12 +44,27 @@ class BillController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorebillRequest  $request
+     * @param  \App\Http\Requests\StoreBillRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorebillRequest $request)
+    public function store(StoreBillRequest $request)
     {
-        //
+        $validateData = $request->validated();
+        $bill = new Bill([
+            "agreement_id" => $validateData['agreement_id'],
+            "status" => "รอจ่าย",
+            "pay_last_date" => $validateData['pay_last_date'],
+            "electricity_unit" => $validateData['electricity_unit'],
+            "water_unit" => $validateData['water_unit'],
+            "pay_other" => $validateData['pay_other'],
+        ]);
+        $image = $request->file('photo');
+        if (isset($image)) {
+            $bill->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/bill/");
+        }
+        $bill->save();
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('room.show', ['id' => $validateData['room_id'],]);
     }
 
     /**
@@ -77,11 +92,11 @@ class BillController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatebillRequest  $request
+     * @param  \App\Http\Requests\UpdateBillRequest  $request
      * @param  \App\Models\bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatebillRequest $request, bill $bill)
+    public function update(UpdateBillRequest $request, bill $bill)
     {
         //
     }

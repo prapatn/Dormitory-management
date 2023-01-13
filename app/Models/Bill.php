@@ -18,6 +18,7 @@ class Bill extends Model
         'status',
         'pay_last_date',
         'electricity_unit',
+        'water_unit',
         'pay_other',
         "image",
     ];
