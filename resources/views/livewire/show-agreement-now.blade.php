@@ -48,7 +48,7 @@
                                         </div>
                                         <div>
                                             <h5 class="font-bold leading-6 text-gray-900 mt-2">
-                                                {!! 'เลขห้อง : '. $room->name !!}
+                                                {!! 'ห้อง : '. $room->name !!}
                                             </h5>
                                             <h6>ชั้น : {{$room->floor }} </h6>
                                             <h6>ราคา : {{$room->price }} บาท/เดือน ค่าประกัน :

@@ -52,7 +52,7 @@
                                                     </div>
                                                     <div>
                                                         <h5 class="font-bold leading-6 text-gray-900 mt-2">
-                                                            {!! 'เลขห้อง : '. $agreement->room->name !!}
+                                                            {!! 'ห้อง : '. $agreement->room->name !!}
                                                         </h5>
                                                         <h6>หอ : {{$agreement->room->dormitory->name }} </h6>
                                                         <h6>ชั้น : {{$agreement->room->floor }} </h6>

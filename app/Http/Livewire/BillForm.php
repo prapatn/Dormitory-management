@@ -11,7 +11,7 @@ class BillForm extends Component
 {
     use WithFileUploads;
 
-    public $agreement, $bill, $photo, $dbphoto, $penalty_per_day;
+    public $agreement, $bill, $photo, $dbphoto;
     public $electricity_unit, $water_unit;
     public $electricity_unit_last, $water_unit_last, $pay_other, $pay_last_date;
 
@@ -30,13 +30,11 @@ class BillForm extends Component
             $this->dbphoto = $this->bill->image;
             $this->pay_other = $this->bill->pay_other;
             $this->pay_last_date = $this->bill->pay_last_date->format('Y-m-d');;
-            $this->penalty_per_day = $this->bill->agreement->penalty_per_day;
         } else {
             $last = Bill::where(['agreement_id' => $this->agreement->id])->latest('id')->first();
             if ($last) {
                 $this->electricity_unit_last = $last->electricity_unit;
                 $this->water_unit_last = $last->water_unit;
-                $this->penalty_per_day = $this->agreement->penalty_per_day;
             }
         }
     }

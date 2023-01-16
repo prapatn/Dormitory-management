@@ -76,9 +76,25 @@ class BillController extends Controller
      * @param  \App\Models\bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function show(bill $bill)
+    public function show($id)
     {
-        //
+        try {
+            $bill = Bill::where([
+                'id' => $id,
+            ])->first();
+
+            $dormitory = Dormitory::where([
+                'id' =>  $bill->agreement->room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            if (!$dormitory) {
+                abort(404);
+            } else {
+                return view('owner.bill.show', compact('bill'));
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
     }
 
     /**

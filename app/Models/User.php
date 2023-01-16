@@ -65,4 +65,22 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function fullAddress()
+    {
+        return $this->address . " " . $this->district->name_th . " " . $this->amphure->name_th . " " . $this->province->name_th . " " . $this->district->zip_code;
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_id', 'id');
+    }
+    public function amphure()
+    {
+        return $this->belongsTo(Amphure::class, 'amphure_id', 'id');
+    }
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
 }

@@ -65,6 +65,6 @@ class Bill extends Model
 
     public function calAll()
     {
-        return $this->calElectricity() + $this->calWater() + $this->pay_other;
+        return $this->calElectricity() + $this->calWater() + $this->pay_other + $this->agreement->room->price;
     }
 }
