@@ -197,7 +197,6 @@ class AgreementController extends Controller
         $agreement->penalty_per_day = $validateData['penalty_per_day'];
         $agreement->start_date = $validateData['start_date'];
         $agreement->end_date = $validateData['end_date'];
-        $agreement->updated_at = Carbon::now('GMT+7');
 
         $agreement->save();
         session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');

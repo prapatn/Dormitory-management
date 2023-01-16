@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdatebillRequest extends FormRequest
+class UpdateBillRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,14 @@ class UpdatebillRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "bill_id" => [],
+            "photo" => ['mimes:png,jpg,jpeg'],
+            "electricity_unit_last" => ['required', 'integer',],
+            "electricity_unit" => ['required', 'integer', 'gt:electricity_unit_last'],
+            "water_unit_last" => ['required', 'integer',],
+            "water_unit" => ['required', 'integer', 'gt:water_unit_last'],
+            "pay_other" => ['nullable', 'integer'],
+            "pay_last_date" => ['required', 'date', 'after:now'],
         ];
     }
 }

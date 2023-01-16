@@ -25,7 +25,6 @@ class StoreBillRequest extends FormRequest
     public function rules()
     {
         return [
-            "room_id" => [],
             "agreement_id" => [],
             "photo" => ['mimes:png,jpg,jpeg'],
             "electricity_unit_last" => ['integer',],

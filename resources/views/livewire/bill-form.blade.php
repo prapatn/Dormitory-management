@@ -72,7 +72,7 @@
 
                     <div class="mt-4">
                         <x-jet-label for="pay_last_date"
-                            value="{{ __('วันสุดท้ายก่อนมีค่าปรับ ( '. $this->agreement->penalty_per_day.' บาท/วัน )') }}" />
+                            value="{{ __('วันสุดท้ายก่อนมีค่าปรับ ( '. $this->penalty_per_day.' บาท/วัน )') }}" />
                         <x-jet-input id="pay_last_date" class="block mt-1 w-full" type="date" name="pay_last_date"
                             wire:model='pay_last_date' required />
                         <x-jet-input-error for="pay_last_date" class="mt-2" />

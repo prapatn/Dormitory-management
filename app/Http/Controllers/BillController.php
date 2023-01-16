@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBillRequest;
 use App\Http\Requests\UpdateBillRequest;
 use App\Models\Agreement;
 use App\Models\Dormitory;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
@@ -86,9 +87,25 @@ class BillController extends Controller
      * @param  \App\Models\bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function edit(bill $bill)
+    public function edit($id)
     {
-        //
+        try {
+            $bill = Bill::where([
+                'id' => $id,
+            ])->first();
+
+            $dormitory = Dormitory::where([
+                'id' =>  $bill->agreement->room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            if (!$dormitory) {
+                abort(404);
+            } else {
+                return view('owner.bill.edit', compact('bill'));
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
     }
 
     /**
@@ -98,9 +115,29 @@ class BillController extends Controller
      * @param  \App\Models\bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBillRequest $request, bill $bill)
+    public function update(UpdateBillRequest $request)
     {
-        //
+        $validateData = $request->validated();
+        $bill = Bill::find($validateData['bill_id']);
+        $image = $request->file('photo');
+        if (isset($image)) {
+            //ลบภาพเก่า
+            $old_img = $bill->image;
+            if ($old_img) {
+                unlink($old_img);
+            }
+            $bill->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
+        }
+        $bill->electricity_unit_last = $validateData['electricity_unit_last'];
+        $bill->electricity_unit = $validateData['electricity_unit'];
+        $bill->water_unit_last = $validateData['water_unit_last'];
+        $bill->water_unit = $validateData['water_unit'];
+        $bill->pay_other = $validateData['pay_other'];
+        $bill->pay_last_date = $validateData['pay_last_date'];
+
+        $bill->save();
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('room.show', ['id' => $bill->agreement->room->id]);
     }
 
     /**

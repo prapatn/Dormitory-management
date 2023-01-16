@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{'จัดการค่าเช่าห้อง : '. $agreement->room->name }}
+            {{'จัดการค่าเช่าห้อง : '. $bill->agreement->room->name }}
         </h2>
     </x-slot>
 
@@ -10,9 +10,9 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
                 <div class="col-md-12">
-                    <form action="{{ route('bill.store') }}" method="post" enctype="multipart/form-data">
-                        <input type="text" hidden name="agreement_id" value="{{$agreement->id}}">
-                        @livewire('bill-form', ['agreement'=>$agreement])
+                    <form action="{{ route('bill.update') }}" method="post" enctype="multipart/form-data">
+                        <input type="text" hidden name="bill_id" value="{{$bill->id}}">
+                        @livewire('bill-form', ['bill'=>$bill])
                     </form>
                 </div>
             </div>

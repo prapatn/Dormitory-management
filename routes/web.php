@@ -72,6 +72,9 @@ Route::middleware([
         Route::get('/bill/create/{id}', [BillController::class, 'create'])->name('bill.create');
         Route::post('/bill/store', [BillController::class, 'store'])->name('bill.store');
         Route::get('/bill/delete/{id}', [BillController::class, 'delete'])->name('bill.delete');
+        Route::get('/bill/edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
+        Route::post('/bill/update', [BillController::class, 'update'])->name('bill.update');
+
     });
 
     // Renter
