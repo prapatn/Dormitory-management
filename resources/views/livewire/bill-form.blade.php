@@ -39,29 +39,21 @@
                     <div class="form-group mt-4">
                         <x-jet-label for="electricity_unit_last" value="{{ __('หน่วยไฟฟ้าบิลที่แล้ว') }}" />
                         <input type="number" name="electricity_unit_last" class="form-control"
-                            wire:model='electricity_unit_last' id="electricity_unit_last" autofocus required {{
-                            $this->electricity_unit_last ==
-                        null ?"": 'disabled' }}>
-                        <input type="hidden" value="{{$this->electricity_unit_last}}" name="electricity_unit_last">
+                            wire:model='electricity_unit_last' id="electricity_unit_last" autofocus required>
                         <x-jet-input-error for="electricity_unit_last" class="mt-2" />
                     </div>
                     <div class="form-group mt-4">
                         <x-jet-label for="electricity_unit" value="{{ __('หน่วยไฟฟ้า') }}" />
                         <input type="number" name="electricity_unit" class="form-control" id="electricity_unit"
                             wire:model='electricity_unit' autofocus required>
-                        @if ($this->electricity_unit != null)
-                        <input type="hidden" value="{{$this->electricity_unit}}" name="water_unit_last">
-                        @endif
+
                         <x-jet-input-error for="electricity_unit" class="mt-2" />
                     </div>
                     <div class="form-group mt-4">
                         <x-jet-label for="water_unit_last" value="{{ __('หน่วยน้ำบิลที่แล้ว') }}" />
                         <input type="number" name="water_unit_last" class="form-control" id="water_unit_last" autofocus
-                            required wire:model='water_unit_last' {{ $this->water_unit_last== null ?"":
-                        'disabled' }}>
-                        @if ($this->water_unit_last != null)
-                        <input type="hidden" value="{{$this->water_unit_last}}" name="water_unit_last">
-                        @endif
+                            required wire:model='water_unit_last'>
+
                         <x-jet-input-error for="water_unit_last" class="mt-2" />
                     </div>
                     <div class="form-group mt-4">

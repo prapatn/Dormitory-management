@@ -113,4 +113,26 @@ class BillController extends Controller
     {
         //
     }
+
+    public function delete($id)
+    {
+        try {
+            $bill = Bill::where([
+                'id' => $id,
+            ])->first();
+            $dormitory = Dormitory::where([
+                'id' =>  $bill->agreement->room->dorm_id,
+                'user_id' => Auth::user()->id,
+            ])->first();
+            if (!$dormitory) {
+                abort(404);
+            } else {
+                $bill->delete();
+                session()->flash('Success', 'ลบข้อมูลสำเร็จ');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
+    }
 }

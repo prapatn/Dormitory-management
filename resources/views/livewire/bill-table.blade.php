@@ -31,8 +31,9 @@
                 <td style="text-align:right;">
                     <a href="#" class="btn btn-primary">รายละเอียด</a>
                     @if($row->status == "รอจ่าย")
-                        <a href="#" class="btn btn-warning">แก้ไข</a>
-                        <a href="#" class="btn btn-danger" onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
+                    <a href="#" class="btn btn-warning">แก้ไข</a>
+                    <a href="{{ route('bill.delete', ['id'=>$row->id]) }}" class="btn btn-danger"
+                        onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
                     @endif
                 </td>
             </tr>
