@@ -56,6 +56,8 @@ class BillController extends Controller
             "pay_last_date" => $validateData['pay_last_date'],
             "electricity_unit" => $validateData['electricity_unit'],
             "water_unit" => $validateData['water_unit'],
+            "electricity_unit_last" => $validateData['electricity_unit_last'],
+            "water_unit_last" => $validateData['water_unit_last'],
             "pay_other" => $validateData['pay_other'],
         ]);
         $image = $request->file('photo');

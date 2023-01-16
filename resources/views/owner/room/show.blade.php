@@ -39,7 +39,7 @@
                                                 รอการยืนยันสัญญาจากผู้เช่า</h5>
                                             @endif
                                         </div>
-                                        {{-- @livewire('rooms-table-view', ['dorm_id' => $dormitory->id]) --}}
+                                        @livewire('bill-table', ['agreement' => $agreement])
                                     </div>
                                 </div>
                             </div>
