@@ -19,7 +19,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        // return view('renter.bill.index');
     }
 
     /**

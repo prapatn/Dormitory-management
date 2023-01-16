@@ -128,7 +128,7 @@ class AgreementController extends Controller
     public function notification_show()
     {
         $agreements = Agreement::where(['user_id' => Auth::user()->id])->latest()->paginate(10);
-        return view('renter.notification.index', compact('agreements'));
+        return view('renter.agreement.index', compact('agreements'));
     }
 
     public function agreement_change_status($id, $status)

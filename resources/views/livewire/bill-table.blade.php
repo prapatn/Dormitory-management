@@ -51,6 +51,5 @@
             {{ $results->links() }}
         </div>
     </div>
-
 </div>
 @endif

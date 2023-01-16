@@ -54,8 +54,7 @@
                                                         <h5 class="font-bold leading-6 text-gray-900 mt-2">
                                                             {!! 'ห้อง : '. $agreement->room->name !!}
                                                         </h5>
-                                                        <h6>หอ : {{$agreement->room->dormitory->name }} </h6>
-                                                        <h6>ชั้น : {{$agreement->room->floor }} </h6>
+                                                        <h6>หอ : {{$agreement->room->dormitory->name }} ชั้น : {{$agreement->room->floor }} </h6>
                                                         <h6>ราคา : {{$agreement->room->price }} บาท/เดือน ค่าประกัน :
                                                             {{$agreement->price_guarantee }} บาท</h6>
                                                         <h6>

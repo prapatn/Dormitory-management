@@ -5,8 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\DormitoryController;
 use App\Http\Controllers\RoomController;
-use App\Providers\RouteServiceProvider;
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,8 +78,10 @@ Route::middleware([
 
     // Renter
     Route::middleware(['roleChecker:renter'])->group(function () {
-        Route::get('/agreement/notification/show', [AgreementController::class, 'notification_show'])->name('agreement.noti.show');
+        Route::get('/agreement/index', [AgreementController::class, 'notification_show'])->name('agreement.index');
         Route::get('/agreement/status/{id}/{status}', [AgreementController::class, 'agreement_change_status'])->name('agreement.status');
+
+        Route::get('/bill/index', [BillController::class, 'index'])->name('bill.index');
     });
 
     Route::middleware(['roleChecker:renter,owner'])->group(function () {
