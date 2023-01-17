@@ -52,9 +52,11 @@
                                                     </div>
                                                     <div>
                                                         <h5 class="font-bold leading-6 text-gray-900 mt-2">
-                                                            {!! 'ห้อง : '. $agreement->room->name !!}
+                                                            {!! 'หอพัก : '. $agreement->room->dormitory->name !!}
+                                                            {!! 'ห้อง : '. $agreement->room->name . ' ชั้น : '
+                                                            . $agreement->room->floor !!}
                                                         </h5>
-                                                        <h6>หอ : {{$agreement->room->dormitory->name }} ชั้น : {{$agreement->room->floor }} </h6>
+
                                                         <h6>ราคา : {{$agreement->room->price }} บาท/เดือน ค่าประกัน :
                                                             {{$agreement->price_guarantee }} บาท</h6>
                                                         <h6>
@@ -88,7 +90,7 @@
                                                             $agreement->agreementShowStatus()
                                                             }}
                                                             @if ($agreement->agreementShowStatus()=="อยู่ในสัญญา")
-                                                                ({{Carbon\Carbon::now()->format('d/m/Y')}})
+                                                            ({{Carbon\Carbon::now()->format('d/m/Y')}})
                                                             @endif
                                                         </h6>
                                                         <a href="#"

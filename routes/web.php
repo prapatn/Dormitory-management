@@ -72,8 +72,6 @@ Route::middleware([
         Route::get('/bill/delete/{id}', [BillController::class, 'delete'])->name('bill.delete');
         Route::get('/bill/edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
         Route::post('/bill/update', [BillController::class, 'update'])->name('bill.update');
-        Route::get('/bill/show/{id}', [BillController::class, 'show'])->name('bill.show');
-
     });
 
     // Renter
@@ -86,6 +84,7 @@ Route::middleware([
 
     Route::middleware(['roleChecker:renter,owner'])->group(function () {
         Route::get('/agreement/show/{id}', [AgreementController::class, 'show'])->name('agreement.show');
+        Route::get('/bill/show/{id}', [BillController::class, 'show'])->name('bill.show');
     });
 
     // Route::get('/dash2', function () {

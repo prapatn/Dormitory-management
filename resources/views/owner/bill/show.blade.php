@@ -17,7 +17,7 @@
                                 ข้อมูลบิล
                             </div>
                             <div>
-                                @if ($bill->status=="รอจ่าย")
+                                @if ($bill->status=="รอจ่าย" && $user->role =="owner")
                                 <a href="{{ route('bill.edit', ['id'=>$bill->id]) }}"
                                     class="float-right sm border-2 border-transparent text-gray-600 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out">
                                     <i data-feather="edit-2" class="sm">
@@ -109,8 +109,16 @@
                                                                     <th></th>
                                                                     <th></th>
                                                                     <th>
+                                                                        @if ($user->role =="owner")
                                                                         <h5 class="font-semibold " style="color: red">
                                                                             {{$bill->status}}</h5>
+                                                                        @else
+                                                                        <a href="">
+                                                                            <h5 class="font-semibold "
+                                                                                style="color: red">
+                                                                                {{$bill->status}}</h5>
+                                                                        </a>
+                                                                        @endif
                                                                     </th>
                                                                 </tr>
                                                             </tbody>
@@ -121,6 +129,14 @@
                                                             class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2"
                                                             type="button">
                                                             {{ __('กลับ') }}</a>
+
+                                                        @if ($bill->status == 'รอจ่าย'&&$user->role =="renter" )
+                                                        <a href="#"
+                                                            onclick="javascript:window.history.back(-1);return false;"
+                                                            class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2 mr-4"
+                                                            type="button">
+                                                            {{ __('จ่ายค่าเช่า') }}</a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 @endif

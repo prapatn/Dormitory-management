@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{'รายละเอียดห้องพัก : ' }}
+            {{'จัดการค่าเช่าห้องของ : ' .$user->name }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
                             <div class="py-6">
                                 <div class="container">
                                     <div class="row">
-                                        {{-- @livewire('bill-table',) --}}
+                                        @livewire('bill-table',)
                                     </div>
                                 </div>
                             </div>

@@ -19,7 +19,8 @@ class BillController extends Controller
      */
     public function index()
     {
-        // return view('renter.bill.index');
+        $user = Auth::user();
+        return view('renter.bill.index', compact('user'));
     }
 
     /**
@@ -78,22 +79,29 @@ class BillController extends Controller
      */
     public function show($id)
     {
+        $user = Auth::user();
         try {
             $bill = Bill::where([
                 'id' => $id,
             ])->first();
 
-            $dormitory = Dormitory::where([
-                'id' =>  $bill->agreement->room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-            if (!$dormitory) {
-                abort(404);
-            } else {
-                return view('owner.bill.show', compact('bill'));
+            if ($user->role == 'owner') {
+                $dormitory = Dormitory::where([
+                    'id' =>  $bill->agreement->room->dorm_id,
+                    'user_id' => $user->id,
+                ])->first();
+                if (!$dormitory) {
+                    abort(404);
+                }
             }
+            if ($user->role == 'renter') {
+                if ($user->id != $bill->agreement->user_id) {
+                    abort(404);
+                }
+            }
+            return view('owner.bill.show', compact('bill', 'user'));
         } catch (\Throwable $th) {
-            return  abort(403);
+            return  abort(404);
         }
     }
 

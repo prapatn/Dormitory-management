@@ -32,9 +32,13 @@
                     <td style="text-align:right;">
                         <a href="{{ route('bill.show', ['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
                         @if($row->status == "รอจ่าย")
+                        @if ($this->user->role=="owner")
                         <a href="{{ route('bill.edit', ['id'=>$row->id]) }}" class="btn btn-warning">แก้ไข</a>
                         <a href="{{ route('bill.delete', ['id'=>$row->id]) }}" class="btn btn-danger"
                             onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
+                        @else
+                        <a href="#" class="btn btn-success">จ่ายค่าเช่า</a>
+                        @endif
                         @endif
                     </td>
                 </tr>
