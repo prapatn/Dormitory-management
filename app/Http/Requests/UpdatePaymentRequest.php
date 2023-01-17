@@ -25,7 +25,8 @@ class UpdatePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "payment_id" => [],
+            "photo" => ['mimes:png,jpg,jpeg'],
         ];
     }
 }

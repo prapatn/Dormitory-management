@@ -25,7 +25,8 @@ class StorePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "bill_id" => [],
+            "photo" => ['mimes:png,jpg,jpeg'],
         ];
     }
 }

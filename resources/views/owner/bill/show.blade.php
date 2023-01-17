@@ -131,8 +131,7 @@
                                                             {{ __('กลับ') }}</a>
 
                                                         @if ($bill->status == 'รอจ่าย'&&$user->role =="renter" )
-                                                        <a href="#"
-                                                            onclick="javascript:window.history.back(-1);return false;"
+                                                        <a href="{{ route('payment.create', ['id'=>$bill->id]) }}"
                                                             class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2 mr-4"
                                                             type="button">
                                                             {{ __('จ่ายค่าเช่า') }}</a>

@@ -93,15 +93,14 @@ class BillController extends Controller
                 if (!$dormitory) {
                     abort(404);
                 }
-            }
-            if ($user->role == 'renter') {
+            } else if ($user->role == 'renter') {
                 if ($user->id != $bill->agreement->user_id) {
                     abort(404);
                 }
             }
-            return view('owner.bill.show', compact('bill',));
+            return view('owner.bill.show', compact('bill', 'user'));
         } catch (\Throwable $th) {
-            return  abort(404);
+            abort(404);
         }
     }
 

@@ -6,6 +6,7 @@ use App\Models\Payment;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
 use App\Models\Bill;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -27,7 +28,8 @@ class PaymentController extends Controller
     public function create($id)
     {
         $bill = Bill::find($id);
-        return view('renter.payment.create', compact('bill'));
+        $user = Auth::user();
+        return view('renter.payment.create', compact('bill', 'user'));
     }
 
     /**
@@ -38,7 +40,7 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**
