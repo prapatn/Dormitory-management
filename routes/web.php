@@ -4,6 +4,7 @@ use App\Http\Controllers\AgreementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\DormitoryController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -80,6 +81,8 @@ Route::middleware([
         Route::get('/agreement/status/{id}/{status}', [AgreementController::class, 'agreement_change_status'])->name('agreement.status');
 
         Route::get('/bill/index', [BillController::class, 'index'])->name('bill.index');
+
+        Route::get('/payment/create/{id}', [PaymentController::class, 'create'])->name('payment.create');
     });
 
     Route::middleware(['roleChecker:renter,owner'])->group(function () {

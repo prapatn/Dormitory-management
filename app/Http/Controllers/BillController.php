@@ -99,7 +99,7 @@ class BillController extends Controller
                     abort(404);
                 }
             }
-            return view('owner.bill.show', compact('bill', 'user'));
+            return view('owner.bill.show', compact('bill',));
         } catch (\Throwable $th) {
             return  abort(404);
         }

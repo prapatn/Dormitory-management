@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{'จัดการค่าเช่าห้องของ : ' .$user->name }}
+            {{'จัดการค่าเช่าห้อง'}}
         </h2>
     </x-slot>
 

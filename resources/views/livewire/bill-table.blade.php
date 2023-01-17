@@ -37,7 +37,8 @@
                         <a href="{{ route('bill.delete', ['id'=>$row->id]) }}" class="btn btn-danger"
                             onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
                         @else
-                        <a href="#" class="btn btn-success">จ่ายค่าเช่า</a>
+                        <a href="{{ route('payment.create', ['id'=>$row->id]) }}"
+                            class="btn btn-success">จ่ายค่าเช่า</a>
                         @endif
                         @endif
                     </td>
