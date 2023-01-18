@@ -40,7 +40,22 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        dd($request);
+        $validateData = $request->validated();
+        $payment = new Payment([
+            "bill_id" => $validateData['bill_id'],
+        ]);
+        $image = $request->file('photo');
+        if (isset($image)) {
+            $payment->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/payment/");
+        }
+        $payment->save();
+
+        $bill = Bill::find($validateData['bill_id']);
+        $bill->status = 'รอตรวจสอบ';
+        $bill->save();
+
+        session()->flash('Success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect()->route('bill.index');
     }
 
     /**

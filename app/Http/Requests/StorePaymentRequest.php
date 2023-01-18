@@ -26,7 +26,7 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             "bill_id" => [],
-            "photo" => ['mimes:png,jpg,jpeg'],
+            "photo" => ['required','mimes:png,jpg,jpeg'],
         ];
     }
 }

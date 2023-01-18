@@ -109,16 +109,9 @@
                                                                     <th></th>
                                                                     <th></th>
                                                                     <th>
-                                                                        @if ($user->role =="owner")
-                                                                        <h5 class="font-semibold " style="color: red">
+                                                                        <h5 class="font-semibold "
+                                                                            style="color: {{$bill->status=='รอจ่าย' ? "red" : ($bill->status=='รอตรวจสอบ' ? "orange" : 'green')}}">
                                                                             {{$bill->status}}</h5>
-                                                                        @else
-                                                                        <a href="">
-                                                                            <h5 class="font-semibold "
-                                                                                style="color: red">
-                                                                                {{$bill->status}}</h5>
-                                                                        </a>
-                                                                        @endif
                                                                     </th>
                                                                 </tr>
                                                             </tbody>

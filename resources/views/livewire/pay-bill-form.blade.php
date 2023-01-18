@@ -21,13 +21,13 @@
                 <div class=" flex items-center justify-center">
                     <div class="row justify-center">
                         <div class=" items-center">
-                            <img src="{{asset('images/bill.png')}}" alt="" width='200' height='200'
+                            <img src="{{asset('images/slip.png')}}" alt="" width='200' height='200'
                                 class="h-48 w-full object-contain">
                         </div>
                     </div>
                 </div>
                 @endif
-                <input type="file" name="photo" wire:model='photo' class="form-control mt-4">
+                <input type="file" name="photo" wire:model='photo' class="form-control mt-4" required autofocus>
                 <x-jet-input-error for="photo" class="mt-2" />
             </div>
         </div>
