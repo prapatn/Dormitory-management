@@ -33,11 +33,8 @@ class BillController extends Controller
         $agreement = Agreement::where([
             'id' =>  $id,
         ])->first();
-        $dormitory = Dormitory::where([
-            'id' =>  $agreement->room->dorm_id,
-            'user_id' => Auth::user()->id,
-        ])->first();
-        if (!$dormitory) {
+
+        if ($agreement->room->dormitory->user_id != Auth::user()->id) {
             abort(404);
         }
         return view('owner.bill.create', compact('agreement'));
@@ -79,18 +76,14 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        $user = Auth::user();
         try {
+            $user = Auth::user();
             $bill = Bill::where([
                 'id' => $id,
             ])->first();
 
             if ($user->role == 'owner') {
-                $dormitory = Dormitory::where([
-                    'id' =>  $bill->agreement->room->dorm_id,
-                    'user_id' => $user->id,
-                ])->first();
-                if (!$dormitory) {
+                if ($user->id != $bill->agreement->room->dormitory->user_id) {
                     abort(404);
                 }
             } else if ($user->role == 'renter') {
@@ -116,12 +109,7 @@ class BillController extends Controller
             $bill = Bill::where([
                 'id' => $id,
             ])->first();
-
-            $dormitory = Dormitory::where([
-                'id' =>  $bill->agreement->room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-            if (!$dormitory) {
+            if (Auth::user()->id != $bill->agreement->room->dormitory->user_id) {
                 abort(404);
             } else {
                 return view('owner.bill.edit', compact('bill'));
@@ -180,11 +168,7 @@ class BillController extends Controller
             $bill = Bill::where([
                 'id' => $id,
             ])->first();
-            $dormitory = Dormitory::where([
-                'id' =>  $bill->agreement->room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-            if (!$dormitory) {
+            if (Auth::user()->id != $bill->agreement->room->dormitory->user_id) {
                 abort(404);
             } else {
                 $bill->delete();

@@ -24,13 +24,15 @@
                     <td>{{ date('d/m/Y', strtotime($row->pay_last_date))}}</td>
                     <td>{{ $row->calAll() }}</td>
                     <td style="text-align:right;">
-                        @if($row->status == "รอจ่าย")
                         @if ($this->user->role=="owner")
                         <a href="{{ route('bill.show', ['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
+                        @if($row->status == "รอจ่าย")
                         <a href="{{ route('bill.edit', ['id'=>$row->id]) }}" class="btn btn-warning">แก้ไข</a>
                         <a href="{{ route('bill.delete', ['id'=>$row->id]) }}" class="btn btn-danger"
                             onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
+                        @endif
                         @elseif ($this->user->role == 'renter')
+                        @if($row->status == "รอจ่าย")
                         <a href="{{ route('payment.create', ['id'=>$row->id]) }}"
                             class="btn btn-success">จ่ายค่าเช่า</a>
                         @endif

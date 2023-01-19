@@ -29,7 +29,7 @@
                                                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
                                                 <div class="mr-5" style=" text-align:center">
                                                     <img src="{{
-                                    asset($bill->image?$bill->image : " images/bill.png") }}"
+                                    asset($bill->image?$bill->image : "images/bill.png") }}"
                                                         class="hover:shadow-lg rounded-md w-full h-full  rounded-b-none ">
                                                 </div>
                                                 <div>

@@ -93,15 +93,14 @@ class RoomController extends Controller
         $room = Room::where([
             'id' => $id,
         ])->first();
-        $dormitory = Dormitory::where([
-            'id' =>  $room->dorm_id,
-            'user_id' => Auth::user()->id,
-        ])->first();
-        $agreements = Agreement::where(['room_id' => $id])->get();
-        $agreement =  $this->findAgreementNow($agreements);
-        if (!$dormitory) {
+
+        if (Auth::user()->id != $room->dormitory->user_id) {
             abort(404);
         }
+
+        $agreements = Agreement::where(['room_id' => $id])->get();
+        $agreement =  $this->findAgreementNow($agreements);
+
         if ($agreement) {
             return view('owner.room.show', compact('room', 'agreement'));
         } else {
@@ -112,7 +111,7 @@ class RoomController extends Controller
     public function findAgreementNow($agreements)
     {
         foreach ($agreements as $item) {
-            if ($item->status == 'ยอมรับ' ||$item->status == 'รอยืนยัน') {
+            if ($item->status == 'ยอมรับ' || $item->status == 'รอยืนยัน') {
                 $check = Carbon::now()->isBefore($item->end_date);
                 if ($check) {
                     return $item;
@@ -135,12 +134,8 @@ class RoomController extends Controller
             $room = Room::where([
                 'id' => $id,
             ])->first();
-            $dormitory = Dormitory::where([
-                'id' =>  $room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
 
-            if (!$dormitory) {
+            if (Auth::user()->id != $room->dormitory->user_id) {
                 abort(404);
             } else {
                 return view('owner.room.edit', compact('room'));
@@ -185,18 +180,12 @@ class RoomController extends Controller
             $room = Room::where([
                 'id' => $id,
             ])->first();
-            $dorm = Dormitory::where([
-                'id' =>  $room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-
-            if ($dorm) {
+            if (Auth::user()->id == $room->dormitory->user_id) {
                 $room->delete();
                 session()->flash('Success', 'ลบข้อมูลสำเร็จ');
                 return  redirect()->back();
             } else {
-                session()->flash('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');
-                return  redirect()->back();
+                abort(404);
             }
         } catch (\Throwable $th) {
             session()->flash('Fail', 'ผิดพลาดกรุณาดำเนินการอีกครั้ง');

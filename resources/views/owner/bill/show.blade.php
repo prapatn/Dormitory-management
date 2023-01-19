@@ -51,5 +51,5 @@
     </div>
     @endif
 
-    @livewire('detail-bill-card', ['bill' => $bill])
+    @livewire('detail-bill-card', ['bill' => $bill,'user'=>$user])
 </x-app-layout>

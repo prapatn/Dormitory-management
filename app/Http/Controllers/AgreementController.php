@@ -44,12 +44,7 @@ class AgreementController extends Controller
         $room = Room::where([
             'id' => $id,
         ])->first();
-        $dormitory = Dormitory::where([
-            'id' =>  $room->dorm_id,
-            'user_id' => Auth::user()->id,
-        ])->first();
-
-        if (!$dormitory) {
+        if (Auth::user()->id != $room->dormitory->user_id) {
             abort(404);
         }
         return view('owner.agreement.create', compact('room'));
@@ -108,11 +103,7 @@ class AgreementController extends Controller
             'id' => $id,
         ])->first();
         if (Auth::user()->role == 'owner') {
-            $dormitory = Dormitory::where([
-                'id' =>  $agreement->room->dormitory->id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-            if (!$dormitory) {
+            if (Auth::user()->id != $agreement->room->dormitory->user_id) {
                 abort(404);
             }
         } else {
@@ -153,15 +144,7 @@ class AgreementController extends Controller
             $agreement = Agreement::where([
                 'id' => $id,
             ])->first();
-            $room = Room::where([
-                'id' => $agreement->room_id,
-            ])->first();
-            $dormitory = Dormitory::where([
-                'id' =>  $room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-
-            if (!$dormitory) {
+            if (Auth::user()->id != $agreement->room->dormitory->user_id) {
                 abort(404);
             } else {
                 return view('owner.agreement.edit', compact('agreement'));
@@ -218,14 +201,7 @@ class AgreementController extends Controller
             $agreement = Agreement::where([
                 'id' => $id,
             ])->first();
-            $room = Room::where([
-                'id' => $agreement->room_id,
-            ])->first();
-            $dormitory = Dormitory::where([
-                'id' =>  $room->dorm_id,
-                'user_id' => Auth::user()->id,
-            ])->first();
-            if (!$dormitory) {
+            if (Auth::user()->id != $agreement->room->dormitory->user_id) {
                 abort(404);
             } else {
                 $agreement->delete();
