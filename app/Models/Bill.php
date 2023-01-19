@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -60,16 +61,45 @@ class Bill extends Model
 
     public function calWater()
     {
-        return $this->calWaterUnit() * $this->agreement->room->dormitory->water_per_unit;
+        $water_min_unit = $this->agreement->room->dormitory->water_min_unit;
+        if ($water_min_unit >= $this->calWaterUnit()) {
+            return $this->agreement->room->dormitory->water_pay_min;
+        } else {
+            return $this->calWaterUnit() * $this->agreement->room->dormitory->water_per_unit;
+        }
     }
 
     public function calWaterText()
     {
-        return $this->calWaterUnit() . " x " . $this->agreement->room->dormitory->water_per_unit . " = " .  $this->calWater();
+        if ($this->agreement->room->dormitory->water_pay_min == $this->calWater()) {
+            return $this->calWaterUnit()  . " = " .  $this->calWater() . " (ราคาเหมา) ";
+        } else {
+            return $this->calWaterUnit() . " x " . $this->agreement->room->dormitory->water_per_unit . " = " .  $this->calWater();
+        }
+    }
+
+    public function checkDatePayLate()
+    {
+        $pay_date = Carbon::now();
+        $pay_last_date = Carbon::parse($this->pay_last_date);
+        if ($this->payment) {
+            $pay_date = Carbon::parse($this->payment->updated_at);
+        }
+        $days = $pay_last_date->diffInDays($pay_date);
+        if ($pay_last_date > $pay_date) {
+            $days = 0;
+        }
+
+        return  $days;
+    }
+
+    public function sumPayLate()
+    {
+        return  $this->checkDatePayLate() * $this->agreement->penalty_per_day;
     }
 
     public function calAll()
     {
-        return $this->calElectricity() + $this->calWater() + $this->pay_other + $this->agreement->room->price;
+        return $this->calElectricity() + $this->calWater() + $this->pay_other + $this->agreement->room->price + $this->sumPayLate();
     }
 }

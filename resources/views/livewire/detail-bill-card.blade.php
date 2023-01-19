@@ -80,8 +80,15 @@
                                                                 <td>ค่าน้ำ</td>
                                                                 <td>{{$bill->calWaterUnit()}} ( {{ $bill->water_unit
                                                                     }} - {{$bill->water_unit_last}} )</td>
+                                                                @if ($bill->agreement->room->dormitory->water_min_unit
+                                                                >= $bill->calWaterUnit())
+                                                                <td>
+                                                                    ราคาเหมา
+                                                                </td>
+                                                                @else
                                                                 <td>{{$bill->agreement->room->dormitory->water_per_unit}}
                                                                 </td>
+                                                                @endif
                                                                 <td>{{$bill->calWater()}}</td>
                                                             </tr>
                                                             <tr>
@@ -90,6 +97,14 @@
                                                                 <td></td>
                                                                 <td>{{$bill->pay_other}}</td>
                                                             </tr>
+                                                            @if ($bill->checkDatePayLate()!=0)
+                                                            <tr>
+                                                                <th>ค่าปรับ</th>
+                                                                <th>{{$bill->checkDatePayLate()}} (วัน)</th>
+                                                                <th>{{$bill->agreement->penalty_per_day}}</th>
+                                                                <th>{{$bill->sumPayLate()}}</th>
+                                                            </tr>
+                                                            @endif
                                                             <tr>
                                                                 <th>รวมทั้งหมด</th>
                                                                 <th></th>
