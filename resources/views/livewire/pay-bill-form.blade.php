@@ -33,6 +33,6 @@
         </div>
     </div>
     <x-jet-button class="mt-4 btn btn-success" wire:loading.attr="disabled" wire:target="photo">
-        {{ __('บันทึกข้อมูล') }}
+        {{ __('ส่งหลักฐานการจ่าย') }}
     </x-jet-button>
 </div>

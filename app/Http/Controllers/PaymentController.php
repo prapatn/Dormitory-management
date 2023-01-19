@@ -41,13 +41,23 @@ class PaymentController extends Controller
     public function store(StorePaymentRequest $request)
     {
         $validateData = $request->validated();
-        $payment = new Payment([
-            "bill_id" => $validateData['bill_id'],
-        ]);
+        $payment = Payment::find($request['id']);
         $image = $request->file('photo');
-        if (isset($image)) {
-            $payment->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/payment/");
+        if ($payment) {
+            if (isset($image)) {
+                //ลบภาพเก่า
+                $old_img = $payment->image;
+                if ($old_img) {
+                    unlink($old_img);
+                }
+            }
+        } else {
+            $payment = new Payment([
+                "bill_id" => $validateData['bill_id'],
+            ]);
         }
+
+        $payment->image = app('App\Http\Controllers\AuthController')->saveImage($image, "image/dorm/");
         $payment->save();
 
         $bill = Bill::find($validateData['bill_id']);

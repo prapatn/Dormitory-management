@@ -77,7 +77,7 @@ Route::middleware([
 
     // Renter
     Route::middleware(['roleChecker:renter'])->group(function () {
-        Route::get('/agreement/index', [AgreementController::class, 'notification_show'])->name('agreement.index');
+        Route::get('/agreement/notification_show', [AgreementController::class, 'notification_show'])->name('agreement.notification_show');
         Route::get('/agreement/status/{id}/{status}', [AgreementController::class, 'agreement_change_status'])->name('agreement.status');
 
         Route::get('/bill/index', [BillController::class, 'index'])->name('bill.index');

@@ -32,6 +32,11 @@ class Bill extends Model
         return $this->belongsTo(Agreement::class);
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
     public function calElectricityUnit()
     {
         return $this->electricity_unit - $this->electricity_unit_last;

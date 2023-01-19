@@ -9,12 +9,9 @@
             <thead class="table-dark">
                 <tr>
                     <th>สถานะ</th>
+                    <th>หอพัก-ห้อง</th>
                     <th>กำหนดชำระ</th>
-                    <th>ค่าเช่าห้อง</th>
-                    <th>ค่าไฟ (หน่วย x ราคา)</th>
-                    <th>ค่าน้ำ (หน่วย x ราคา)</th>
-                    <th>ค่าอื่นๆ</th>
-                    <th>รวม (บาท)</th>
+                    <th>ค่าเช่ารวม (บาท)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -23,11 +20,8 @@
                 @foreach ($results as $row)
                 <tr>
                     <td>{{ $row->status }}</td>
+                    <td>{{$row->agreement->room->dormitory->name ." - " .$row->agreement->room->name }}</td>
                     <td>{{ date('d/m/Y', strtotime($row->pay_last_date))}}</td>
-                    <td>{{ $row->agreement->room->price }}</td>
-                    <td>{{ $row->calElectricityText() }}</td>
-                    <td>{{ $row->calWaterText() }}</td>
-                    <td>{{ $row->pay_other }}</td>
                     <td>{{ $row->calAll() }}</td>
                     <td style="text-align:right;">
                         @if($row->status == "รอจ่าย")
@@ -41,7 +35,7 @@
                             class="btn btn-success">จ่ายค่าเช่า</a>
                         @endif
                         @else
-                        <a href="{{ route('bill.show', ['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
+                        <a href="{{ route('payment.create', ['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
                         @endif
                     </td>
                 </tr>

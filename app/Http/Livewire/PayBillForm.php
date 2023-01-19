@@ -9,9 +9,14 @@ class PayBillForm extends Component
 {
     use WithFileUploads;
 
-    public $dbphoto, $photo;
+    public $dbphoto, $photo, $bill;
     public function render()
     {
         return view('livewire.pay-bill-form');
+    }
+
+    public function mount()
+    {
+        $this->dbphoto = $this->bill->payment->image;
     }
 }

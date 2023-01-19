@@ -24,13 +24,11 @@ class AgreementController extends Controller
         $room = Room::where([
             'id' => $id,
         ])->first();
-        $dormitory = Dormitory::where([
-            'id' =>  $room->dorm_id,
-            'user_id' => Auth::user()->id,
-        ])->first();
-        if (!$dormitory) {
+
+        if (Auth::user()->id != $room->dormitory->user_id) {
             abort(404);
         }
+
         $agreements = Agreement::where(['room_id' => $id])->get();
         $agreement = app('App\Http\Controllers\RoomController')->findAgreementNow($agreements);
         return view('owner.agreement.index', compact('room', 'agreement'));
