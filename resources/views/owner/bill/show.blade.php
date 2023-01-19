@@ -28,7 +28,8 @@
                                                     <img src="{{asset($bill->payment->image)}}"
                                                         class="rounded-md h-48 w-full object-contain rounded-b-none ">
                                                     <h6 class="mt-4 mb-4">
-                                                        {!! "ส่งหลักฐานเมื่อ : " .$bill->payment->updated_at !!}
+                                                        {!! "ส่งหลักฐานเมื่อ : " . date('d-m-Y',
+                                                        strtotime($bill->payment->updated_at)) !!}
                                                     </h6>
                                                     <h5 class=" font-bold leading-6 text-gray-900 mt-2">
 
@@ -37,6 +38,12 @@
                                                         {!! "ค่าเช่ารวมของเดือนนี้ " .
                                                         $bill->calAll() ." บาท" !!}
                                                     </h5>
+                                                    @if ($bill->status == "ตรวจสอบแล้ว")
+                                                    {{-- <a href="#" class="btn btn-success mt-4"></a> --}}
+                                                    @else
+                                                    <a href="{{ route('payment.edit', ['id'=>$bill->id]) }}"
+                                                        class="btn btn-success mt-4">ตรวจสอบแล้ว</a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

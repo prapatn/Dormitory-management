@@ -27,7 +27,8 @@
                     </div>
                 </div>
                 @endif
-                <input type="file" name="photo" wire:model='photo' class="form-control mt-4" required autofocus>
+                <input type="file" name="photo" wire:model='photo' class="form-control mt-4" required {{$this->dbphoto
+                ?? "autofocus"}}>
                 <x-jet-input-error for="photo" class="mt-2" />
             </div>
         </div>

@@ -6,9 +6,9 @@
         </h2>
     </x-slot>
 
-    @livewire('detail-bill-card', ['bill' => $bill])
+    @livewire('detail-bill-card', ['bill' => $bill,'user'=>$user])
 
-    <div class="py-6">
+    <div class="pt-3 pb-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- Form --}}
@@ -47,7 +47,8 @@
                                                         @csrf {{-- ป้องกันการ Hack ด้วย การป้อน Script --}}
                                                         <input type="text" hidden name="bill_id" value="{{$bill->id}}">
                                                         @if ($bill->payment)
-                                                        <input type="text" hidden name="id" value="{{$bill->payment->id}}">
+                                                        <input type="text" hidden name="id"
+                                                            value="{{$bill->payment->id}}">
                                                         @endif
                                                         @livewire('pay-bill-form', ['bill' => $bill])
                                                     </form>

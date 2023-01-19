@@ -85,9 +85,15 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit($id)
     {
-        //
+        $bill = Bill::find($id);
+        if ($bill->agreement->room->dormitory->user_id != Auth::user()->id) {
+            abort(404);
+        }
+        $bill->status = "ตรวจสอบแล้ว";
+        $bill->save();
+        return redirect()->back();
     }
 
     /**

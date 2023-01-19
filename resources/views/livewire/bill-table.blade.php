@@ -35,9 +35,9 @@
                         @if($row->status == "รอจ่าย")
                         <a href="{{ route('payment.create', ['id'=>$row->id]) }}"
                             class="btn btn-success">จ่ายค่าเช่า</a>
-                        @endif
                         @else
                         <a href="{{ route('payment.create', ['id'=>$row->id]) }}" class="btn btn-primary">รายละเอียด</a>
+                        @endif
                         @endif
                     </td>
                 </tr>

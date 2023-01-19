@@ -125,19 +125,12 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    @if ($bill->status == 'รอจ่าย' )
+                                                    @if ($bill->status == 'รอจ่าย' && $user->role =="owner" )
                                                     <a href="#"
                                                         onclick="javascript:window.history.back(-1);return false;"
                                                         class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2"
                                                         type="button">
                                                         {{ __('กลับ') }}</a>
-
-                                                    @if ($user->role =="renter" )
-                                                    <a href="{{ route('payment.create', ['id'=>$bill->id]) }}"
-                                                        class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2 mr-4"
-                                                        type="button">
-                                                        {{ __('จ่ายค่าเช่า') }}</a>
-                                                    @endif
                                                     @endif
                                                 </div>
                                             </div>

@@ -73,6 +73,8 @@ Route::middleware([
         Route::get('/bill/delete/{id}', [BillController::class, 'delete'])->name('bill.delete');
         Route::get('/bill/edit/{id}', [BillController::class, 'edit'])->name('bill.edit');
         Route::post('/bill/update', [BillController::class, 'update'])->name('bill.update');
+
+        Route::get('/payment/edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
     });
 
     // Renter

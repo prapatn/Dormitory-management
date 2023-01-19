@@ -17,6 +17,8 @@ class PayBillForm extends Component
 
     public function mount()
     {
-        $this->dbphoto = $this->bill->payment->image;
+        if ($this->bill->payment) {
+            $this->dbphoto = $this->bill->payment->image;
+        }
     }
 }
