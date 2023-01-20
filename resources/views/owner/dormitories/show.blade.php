@@ -31,7 +31,7 @@
                                                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
                                                 <div class="mr-5" style=" text-align:center">
                                                     <img src="{{ $dormitory->image?asset($dormitory->image):asset('images/buildings.png') }}"
-                                                        class="hover:shadow-lg rounded-md h-48 w-full object-cover rounded-b-none ">
+                                                        class="hover:shadow-lg rounded-md h-48 w-full object-contain rounded-b-none ">
                                                     <h5 class=" font-bold leading-6 text-gray-900 mt-2">
                                                         {!! $dormitory->name !!}
                                                     </h5>

@@ -26,7 +26,7 @@
                                 ข้อมูลสัญญา
                             </div>
                             <div>
-                                @if ($agreement->status=="รอยืนยัน")
+                                @if ($agreement->status=="รอยืนยัน" && Auth::user()->role=='owner')
                                 <a href="{{ route('agreement.edit', ['id'=>$agreement->id]) }}"
                                     class="float-right sm border-2 border-transparent text-gray-600 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out">
                                     <i data-feather="edit-2" class="sm">
@@ -93,11 +93,6 @@
                                                             ({{Carbon\Carbon::now()->format('d/m/Y')}})
                                                             @endif
                                                         </h6>
-                                                        <a href="#"
-                                                            onclick="javascript:window.history.back(-1);return false;"
-                                                            class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold float-end mt-2"
-                                                            type="button">
-                                                            {{ __('กลับ') }}</a>
                                                     </div>
                                                 </div>
                                                 @endif
@@ -112,4 +107,27 @@
             </div>
         </div>
     </div>
+
+    <div class="pb-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mt-4">
+                {{-- Table --}}
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header text-xl font-semibold">ประวัติการจ่ายค่าเช่า</div>
+                        <div class="card-body">
+                            <div class="py-6">
+                                <div class="container">
+                                    <div class="row">
+                                        @livewire('bill-table', ['agreement' => $agreement])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </x-app-layout>

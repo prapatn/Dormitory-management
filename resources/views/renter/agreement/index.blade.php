@@ -64,18 +64,18 @@
                                                     <td style="vertical-align: middle;">
                                                         <div class="flex">
                                                             <a href="{{ route('agreement.show', ['id'=>$row->id]) }}"
-                                                                class="btn btn-primary">รายละเอียด
+                                                                class="btn btn-primary mr-2">รายละเอียด
                                                             </a>
                                                             @if ($row->status=="รอยืนยัน")
                                                             <a href=" {{ route('agreement.status',
                                                             ['id'=>$row->id,'status'=>" ยอมรับ"]) }}"
-                                                                class="btn btn-success" onclick="return
+                                                                class="btn btn-success mr-2" onclick="return
                                                             confirm('ต้องการยอมรับสัญญานี้หรือไม่')">ยอมรับสัญญา
                                                             </a>
 
                                                             <a href=" {{ route('agreement.status',
                                                             ['id'=>$row->id,'status'=>" ปฏิเสธ"]) }}"
-                                                                class="btn btn-danger" onclick="return
+                                                                class="btn btn-danger mr-2" onclick="return
                                                             confirm('ต้องการไม่ยอมรับนี้หรือไม่')">ปฏิเสธสัญญา
                                                             </a>
                                                             @endif

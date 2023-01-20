@@ -22,7 +22,7 @@
                 {{-- Table --}}
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header text-xl font-semibold">ตารางรายการหอพัก</div>
+                        <div class="card-header text-xl font-semibold">รายการหอพัก</div>
                         <div class="card-body">
                             <div class="py-6">
                                 <div class="container">
@@ -41,7 +41,7 @@
                                                 <div class="rounded-md shadow-md">
                                                     <a href="{{ url('dormitories/show/' . $item->id) }}">
                                                         <img src="{{ $item->image?$item->image:asset('images/buildings.png') }}"
-                                                            class="hover:shadow-lg cursor-pointer rounded-md h-48 w-full object-cover rounded-b-none ">
+                                                            class="hover:shadow-lg cursor-pointer rounded-md h-48 w-full  object-contain rounded-b-none ">
                                                     </a>
                                                     <div class="pt-4 bg-white rounded-b-md p-4">
                                                         <div class="flex items-start">
@@ -75,56 +75,16 @@
                                             </div>
                                             @endforeach
                                         </div>
-                                        {{-- <table class="table table-striped mt-2">
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th>รูป</th>
-                                                    <th>ชื่อ</th>
-                                                    <th>ที่อยู่</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($dormitories as $row)
-                                                <tr>
-
-                                                    <td>
-                                                        @if ($row->image)
-                                                        <img src="{{ asset($row->image) }}" alt="" width="200px"
-                                                            height="100px">
-                                                        @else
-                                                        <img src="{{ asset('images/buildings.png') }}" alt=""
-                                                            width="200px" height="100px">
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $row->name }}</td>
-                                                    <td>{{ $row->getFullAddress(); }}</td>
-                                                    <td>
-                                                        <a href="{{ url('dormitories/show/' . $row->id) }}"
-                                                            class="btn btn-primary">รายละเอียด</a>
-                                                        <a href="{{ url('dormitories/edit/' . $row->id) }}"
-                                                            class="btn btn-warning">แก้ไข</a>
-                                                        <a href="{{ url('dormitories/delete/' . $row->id) }}"
-                                                            class="btn btn-danger"
-                                                            onclick="return confirm('ต้องการลบข้อมูลนี้หรือไม่')">ลบ</a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table> --}}
                                         {{-- Tab page --}}
                                         <div class="mt-4">
                                             {{ $dormitories->links() }}
                                         </div>
                                         @endif
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

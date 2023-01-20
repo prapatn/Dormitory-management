@@ -29,11 +29,17 @@
                                     <div class="row">
                                         <div class="flex items-center justify-center mb-2 px-20">
                                             @if ($agreement->status=="ยอมรับ")
+                                            @if ($agreement->agreementShowStatus()=="อยู่ในสัญญา")
                                             <a href="{{ route('bill.create', ['id'=>$agreement->id]) }}"
                                                 class="btn btn-success inline-flex items-center px-4 py-2 rounded-md font-semibold"
                                                 type="button">
                                                 {{ __('เพิ่มบิลค่าเช่า') }}
                                             </a>
+                                            @else
+                                            <h5 class="font-semibold " style="color: red">
+                                                {{$agreement->agreementShowStatus()}}</h5>
+                                            @endif
+
                                             @else
                                             <h5 class="font-semibold " style="color: red">
                                                 รอการยืนยันสัญญาจากผู้เช่า</h5>

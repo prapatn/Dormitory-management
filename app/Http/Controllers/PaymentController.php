@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
+use App\Models\Agreement;
 use App\Models\Bill;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $agreements = Agreement::where(['user_id' => Auth::user()->id, 'status' => 'ยอมรับ'])->paginate(6);
+        return view('renter.payment.index', compact('agreements'));
     }
 
     /**

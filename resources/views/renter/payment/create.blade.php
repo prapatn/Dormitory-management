@@ -20,6 +20,37 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="flex items-center justify-center mb-2 px-20">
+                                            @if ($bill->agreement->room->dormitory->payment_image == null)
+                                            <div
+                                            class="grid grid-cols-1 gap-8 md:gap-8">
+                                            <div class="ml-5" style=" text-align:center">
+                                                <div class="mb-5" style=" text-align:center">
+                                                    <div style="text-align: start">
+                                                        <h6 class="text-xl font-semibold mb-2">{{ __('ช่องทางการโอน') }}
+                                                        </h6>
+                                                    </div>
+                                                    <h6 class=" text-gray-900 mt-2">
+                                                        {!! $bill->agreement->room->dormitory->bank_name . " " .
+                                                        $bill->agreement->room->dormitory->payment_number !!}
+                                                    </h6>
+                                                    <h6 class="  text-gray-900 mt-2">
+                                                        {!! "ค่าเช่ารวมของเดือนนี้ " .
+                                                        $bill->calAll() ." บาท" !!}
+                                                    </h6>
+                                                </div>
+                                                <form action="{{ route('payment.store') }}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    @csrf {{-- ป้องกันการ Hack ด้วย การป้อน Script --}}
+                                                    <input type="text" hidden name="bill_id" value="{{$bill->id}}">
+                                                    @if ($bill->payment)
+                                                    <input type="text" hidden name="id"
+                                                        value="{{$bill->payment->id}}">
+                                                    @endif
+                                                    @livewire('pay-bill-form', ['bill' => $bill])
+                                                </form>
+                                            </div>
+                                        </div>
+                                            @else
                                             <div
                                                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
                                                 <div class="mr-5" style=" text-align:center">
@@ -54,6 +85,7 @@
                                                     </form>
                                                 </div>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

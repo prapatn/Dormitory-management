@@ -12,6 +12,7 @@
                 <div class="col-md-12">
                     <form action="{{ route('bill.store') }}" method="post" enctype="multipart/form-data">
                         <input type="text" hidden name="agreement_id" value="{{$agreement->id}}">
+                        <input type="text" hidden name="room_id" value="{{$agreement->room_id}}">
                         @livewire('bill-form', ['agreement'=>$agreement])
                     </form>
                 </div>

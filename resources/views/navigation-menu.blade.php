@@ -22,12 +22,17 @@
                 @elseif (Auth::user()->role == 'renter')
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('agreement.notification_show') }}">
+                    <a href="{{ route('bill.index') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('bill.index') }}" :active="request()->routeIs('bill.index')">
+                        {{ __('จัดการจ่ายค่าเช่าห้อง') }}
+                    </x-jet-nav-link>
+                </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('agreement.notification_show') }}"
                         :active="request()->routeIs('agreement.notification_show')">
@@ -35,10 +40,11 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('bill.index') }}" :active="request()->routeIs('bill.index')">
-                        {{ __('จัดการจ่ายค่าเช่าห้อง') }}
+                    <x-jet-nav-link href="{{ route('payment.index') }}" :active="request()->routeIs('payment.index')">
+                        {{ __('ประวัติการจ่ายค่าเช่า') }}
                     </x-jet-nav-link>
                 </div>
+
                 @endif
             </div>
 

@@ -84,6 +84,7 @@ Route::middleware([
 
         Route::get('/bill/index', [BillController::class, 'index'])->name('bill.index');
 
+        Route::get('/payment/index', [PaymentController::class, 'index'])->name('payment.index');
         Route::get('/payment/create/{id}', [PaymentController::class, 'create'])->name('payment.create');
         Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
     });
