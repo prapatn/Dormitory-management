@@ -3,7 +3,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-
                 @if ( Auth::user()->role == 'owner')
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -188,9 +187,31 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="#" :active="request()->routeIs('#')">
-                {{ __('Dashboard') }}
+            @if ( Auth::user()->role == 'owner')
+
+            <x-jet-responsive-nav-link href="{{ route('dorm') }}" :active="request()->routeIs('dorm')">
+                {{ __('จัดการหอพัก') }}
             </x-jet-responsive-nav-link>
+
+            @elseif (Auth::user()->role == 'renter')
+            <x-jet-responsive-nav-link href="{{ route('bill.index') }}" :active="request()->routeIs('bill.index')">
+                @if (Auth::user()->renterCountPaymentNew()>0)
+                {{ __('จัดการจ่ายค่าเช่าห้อง (' .Auth::user()->renterCountPaymentNew().")") }}
+                @else
+                {{ __('จัดการจ่ายค่าเช่าห้อง') }}
+                @endif
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('agreement.notification_show') }}" :active="request()->routeIs('agreement.notification_show')">
+                @if (Auth::user()->renterCountAgrementNew()>0)
+                {{ __('จัดการสัญญาเช่าห้อง (' .Auth::user()->renterCountAgrementNew().")") }}
+                @else
+                {{ __('จัดการสัญญาเช่าห้อง') }}
+                @endif
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('payment.index') }}" :active="request()->routeIs('payment.index')">
+                {{ __('ประวัติการจ่ายค่าเช่า') }}
+            </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
