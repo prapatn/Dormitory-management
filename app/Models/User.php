@@ -68,10 +68,10 @@ class User extends Authenticatable
 
     public function fullAddress()
     {
-        if($this->district==null){
+        if ($this->district == null) {
             return "ผู้ใช้ยังไม่ระบุข้อมูลที่อยู๋";
         }
-        return $this->address . " " . $this->district->name_th??"" . " " . $this->amphure->name_th??"" . " " . $this->province->name_th??"" . " " . $this->district->zip_code??"";
+        return $this->address . " " . $this->district->name_th ?? "" . " " . $this->amphure->name_th ?? "" . " " . $this->province->name_th ?? "" . " " . $this->district->zip_code ?? "";
     }
 
     public function province()
@@ -85,5 +85,19 @@ class User extends Authenticatable
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+
+    public function renterCountAgrementNew()
+    {
+        return Agreement::where(['user_id' => $this->id, 'status' => 'รอยืนยัน'])->count();
+    }
+
+    public function renterCountPaymentNew()
+    {
+        return Bill::join('agreements', 'bills.agreement_id', '=', 'agreements.id')
+            ->join('users', 'agreements.user_id', '=', 'users.id')
+            ->where('users.id', $this->id)
+            ->where('bills.status', "รอจ่าย")
+            ->count();
     }
 }

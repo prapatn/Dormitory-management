@@ -30,13 +30,21 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('bill.index') }}" :active="request()->routeIs('bill.index')">
+                        @if (Auth::user()->renterCountPaymentNew()>0)
+                        {{ __('จัดการจ่ายค่าเช่าห้อง (' .Auth::user()->renterCountPaymentNew().")") }}
+                        @else
                         {{ __('จัดการจ่ายค่าเช่าห้อง') }}
+                        @endif
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('agreement.notification_show') }}"
                         :active="request()->routeIs('agreement.notification_show')">
+                        @if (Auth::user()->renterCountAgrementNew()>0)
+                        {{ __('จัดการจ่ายค่าเช่าห้อง (' .Auth::user()->renterCountAgrementNew().")") }}
+                        @else
                         {{ __('จัดการสัญญาเช่าห้อง') }}
+                        @endif
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

@@ -39,13 +39,16 @@
                             <div class="flex items-center justify-center mb-2 px-20">
                                 <div class="flex items-center justify-center mb-2 px-20">
                                     @if ($agreement!=null)
-                                    <div
-                                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
+                                    <div class="grid grid-cols-1 md:grid-cols-{{$agreement->image?" 2":"1"}}
+                                        lg:grid-cols-{{$agreement->image?"2":"1"}}
+                                        xl:grid-cols-{{$agreement->image?"2":"1"}} gap-8 md:gap-8">
+
+                                        @if ($agreement->image)
                                         <div class="mr-5" style=" text-align:center">
-                                            <img src="{{
-                                            asset($agreement->image?$agreement->image : "images/agreement.png") }}"
-                                                class="hover:shadow-lg rounded-md h-full w-full  rounded-b-none ">
+                                            <img src="{{ asset($agreement->image) }}"
+                                                class="hover:shadow-lg rounded-md w-full h-120 object-contain rounded-b-none ">
                                         </div>
+                                        @endif
                                         <div>
                                             <h5 class="font-bold leading-6 text-gray-900 mt-2">
                                                 {!! 'ห้อง : '. $room->name !!}

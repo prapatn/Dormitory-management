@@ -27,8 +27,11 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="flex items-center justify-center mb-2 px-20">
-                                            <div
-                                                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 md:gap-8">
+                                            <div class="grid grid-cols-1 md:grid-cols-{{$dormitory->image?" 2":"1"}}
+                                                lg:grid-cols-{{$dormitory->image?"2":"1"}}
+                                                xl:grid-cols-{{$dormitory->image?"2":"1"}} gap-8 md:gap-8">
+
+                                                @if ($dormitory->image)
                                                 <div class="mr-5" style=" text-align:center">
                                                     <img src="{{ $dormitory->image?asset($dormitory->image):asset('images/buildings.png') }}"
                                                         class="hover:shadow-lg rounded-md h-48 w-full object-contain rounded-b-none ">
@@ -36,6 +39,8 @@
                                                         {!! $dormitory->name !!}
                                                     </h5>
                                                 </div>
+                                                @endif
+
                                                 <div>
                                                     <h6>ที่อยู่ : {{$dormitory->getFullAddress() }} </h6>
                                                     <h6>ค่าไฟ : {{$dormitory->electricity_per_unit }} (บาท/หน่วย)
