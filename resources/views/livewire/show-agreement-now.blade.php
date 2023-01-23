@@ -57,7 +57,7 @@
                                             <h6>ราคา : {{$room->price }} บาท/เดือน ค่าประกัน :
                                                 {{$agreement->price_guarantee }} บาท</h6>
 
-                                            <h6>ผู้เช่า : {{$agreement->user->name }} </h6>
+                                            <h6>ผู้เช่า : {{$agreement->user->name }} ({{$agreement->user->email }},{{$agreement->user->phone}}) </h6>
                                             <h6>วันเริ่มสัญญา : {{date('d/m/Y',
                                                 strtotime($agreement->start_date))}}
                                             </h6>

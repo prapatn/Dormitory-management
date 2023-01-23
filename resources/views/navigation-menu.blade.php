@@ -40,7 +40,7 @@
                     <x-jet-nav-link href="{{ route('agreement.notification_show') }}"
                         :active="request()->routeIs('agreement.notification_show')">
                         @if (Auth::user()->renterCountAgrementNew()>0)
-                        {{ __('จัดการจ่ายค่าเช่าห้อง (' .Auth::user()->renterCountAgrementNew().")") }}
+                        {{ __('จัดการสัญญาเช่าห้อง (' .Auth::user()->renterCountAgrementNew().")") }}
                         @else
                         {{ __('จัดการสัญญาเช่าห้อง') }}
                         @endif

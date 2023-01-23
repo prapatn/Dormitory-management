@@ -31,7 +31,7 @@
                     <div class="form-group mt-4">
                         <x-jet-label for="num_end" value="{{ __('เลขห้องสิ้นสุด') }}" />
                         <input type="number" name="num_end" class="form-control" id="num_end" required autofocus
-                            min="{{$this->num_start+1}}" placeholder="เช่น 10" max="99" wire:model='num_end'>
+                            min="{{$this->num_start}}" placeholder="เช่น 10" max="99" wire:model='num_end'>
                     </div>
                     <x-jet-input-error for="num_end" class="mt-2" />
                     @endif
