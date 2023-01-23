@@ -55,4 +55,9 @@
         </div>
     </div>
 </div>
+@else
+<div class="flex items-center justify-center">
+    <h5 class="font-semibold " style="color: red">
+        ยังไม่มีข้อมูลบิลค่าเช่า</h5>
+</div>
 @endif

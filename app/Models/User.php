@@ -68,10 +68,14 @@ class User extends Authenticatable
 
     public function fullAddress()
     {
-        if ($this->district == null) {
+        if ($this->address == null) {
             return "ผู้ใช้ยังไม่ระบุข้อมูลที่อยู๋";
         }
-        return $this->address . " " . $this->district->name_th ?? "" . " " . $this->amphure->name_th ?? "" . " " . $this->province->name_th ?? "" . " " . $this->district->zip_code ?? "";
+        if ($this->district) {
+            return $this->address  . " " . $this->district->name_th . " " . $this->amphure->name_th  . " " . $this->province->name_th  . " " . $this->district->zip_code;
+        } else {
+            return $this->address . " " . $this->amphure->name_th  . " " . $this->province->name_th . " " ;
+        }
     }
 
     public function province()

@@ -64,6 +64,11 @@
                                         <div class="mt-4">
                                             {{ $agreements->links() }}
                                         </div>
+                                        @else
+                                        <div class="flex items-center justify-center">
+                                            <h5 class="font-semibold " style="color: red">
+                                                ยังไม่มีข้อมูลประวัติการเช่า</h5>
+                                        </div>
                                         @endif
                                     </div>
                                 </div>

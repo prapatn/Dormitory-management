@@ -27,7 +27,7 @@
                             <div class="py-6">
                                 <div class="container">
                                     <div class="row">
-                                        @if ($agreements)
+                                        @if (count($agreements)>0)
                                         <table class="table table-striped mt-2">
                                             <thead class="table-dark">
                                                 <tr>
