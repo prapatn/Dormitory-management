@@ -27,13 +27,19 @@
                     </div>
                 </div>
                 @endif
+
+                @if ($this->bill->status != "ตรวจสอบแล้ว")
                 <input type="file" name="photo" wire:model='photo' class="form-control mt-4" required {{$this->dbphoto
                 ?? "autofocus"}}>
                 <x-jet-input-error for="photo" class="mt-2" />
+                @endif
+
             </div>
         </div>
     </div>
+    @if ($this->bill->status != "ตรวจสอบแล้ว")
     <x-jet-button class="mt-4 btn btn-success" wire:loading.attr="disabled" wire:target="photo">
         {{ __('ส่งหลักฐานการจ่าย') }}
     </x-jet-button>
+    @endif
 </div>

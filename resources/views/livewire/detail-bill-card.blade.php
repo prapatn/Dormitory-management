@@ -32,7 +32,7 @@
                                                 @if ($bill->image)
                                                 <div class="mr-5" style=" text-align:center">
                                                     <img src="{{ asset($bill->image) }}"
-                                                        class="hover:shadow-lg rounded-md w-full h-120 object-contain rounded-b-none ">
+                                                        class=" rounded-md w-full h-120 object-contain rounded-b-none ">
                                                 </div>
                                                 @endif
                                                 <div>

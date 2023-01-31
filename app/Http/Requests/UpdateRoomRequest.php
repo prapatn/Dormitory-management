@@ -26,7 +26,7 @@ class UpdateRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => ['required', 'string',  Rule::unique('rooms')->ignore($this->id)->whereNull('deleted_at')],
+            "name" => ['required', 'string',  Rule::unique('rooms')->where('dorm_id',$this->dorm_id)-> ignore($this->id)->whereNull('deleted_at')],
             "floor" => ['required', 'numeric'],
             "price" => ['required', 'numeric', 'min:1'],
         ];

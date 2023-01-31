@@ -41,7 +41,7 @@
                                                 <div class="rounded-md shadow-md">
                                                     <a href="{{ url('dormitories/show/' . $item->id) }}">
                                                         <img src="{{ $item->image?$item->image:asset('images/buildings.png') }}"
-                                                            class="hover:shadow-lg cursor-pointer rounded-md h-48 w-full  object-contain rounded-b-none ">
+                                                            class="rounded-md h-48 w-full  object-contain rounded-b-none ">
                                                     </a>
                                                     <div class="pt-4 bg-white rounded-b-md p-4">
                                                         <div class="flex items-start">

@@ -34,7 +34,7 @@
                                                 @if ($dormitory->image)
                                                 <div class="mr-5" style=" text-align:center">
                                                     <img src="{{ $dormitory->image?asset($dormitory->image):asset('images/buildings.png') }}"
-                                                        class="hover:shadow-lg rounded-md h-48 w-full object-contain rounded-b-none ">
+                                                        class=" rounded-md h-48 w-full object-contain rounded-b-none ">
                                                     <h5 class=" font-bold leading-6 text-gray-900 mt-2">
                                                         {!! $dormitory->name !!}
                                                     </h5>

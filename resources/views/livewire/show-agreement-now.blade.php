@@ -46,7 +46,7 @@
                                         @if ($agreement->image)
                                         <div class="mr-5" style=" text-align:center">
                                             <img src="{{ asset($agreement->image) }}"
-                                                class="hover:shadow-lg rounded-md w-full h-120 object-contain rounded-b-none ">
+                                                class=" rounded-md w-full h-120 object-contain rounded-b-none ">
                                         </div>
                                         @endif
                                         <div>
