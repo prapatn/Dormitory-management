@@ -24,6 +24,7 @@ class Agreement extends Model
         'image',
         'status',
         "penalty_per_day",
+        "annotation",
     ];
 
     protected $dates = ['start_date', 'end_date'];
@@ -44,7 +45,7 @@ class Agreement extends Model
 
     public function agreementShowStatus()
     {
-        if ($this->status == "รอยืนยัน" || $this->status == "ปฏิเสธ") {
+        if ($this->status == "รอยืนยัน" || $this->status == "ปฏิเสธ" ||  $this->status ==  "ยกเลิกสัญญาก่อนกำหนด") {
             return $this->status;
         } else if ($this->status == "ยอมรับ") {
             if (Carbon::now()->between($this->start_date, $this->end_date)) {

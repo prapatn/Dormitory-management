@@ -66,6 +66,8 @@ Route::middleware([
         Route::get('/agreement/edit/{id}', [AgreementController::class, 'edit'])->name('agreement.edit');
         Route::get('/agreement/delete/{id}', [AgreementController::class, 'delete'])->name('agreement.delete');
         Route::post('/agreement/update', [AgreementController::class, 'update'])->name('agreement.update');
+        Route::get('/agreement/exit/{id}', [AgreementController::class, 'exit'])->name('agreement.exit');
+        Route::post('/agreement/status', [AgreementController::class, 'agreement_exit_status'])->name('agreement.exit.status');
 
         //Bill
         Route::get('/bill/create/{id}', [BillController::class, 'create'])->name('bill.create');

@@ -7,12 +7,17 @@
                     ข้อมูลสัญญาปัจจุบัน
                 </div>
                 <div>
-                    @if ($agreement!=null)
+                    @if ($agreement!=null && $this->page!=2)
                     @if ($agreement->status=="รอยืนยัน")
                     <a href="{{ route('agreement.edit', ['id'=>$agreement->id]) }}"
                         class="float-right sm border-2 border-transparent text-gray-600 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out">
                         <i data-feather="edit-2" class="sm">
                         </i>
+                    </a>
+                    @else
+                    <a href="{{ route('agreement.exit', ['id'=>$agreement->id]) }}" class="">
+                        <x-bx-exit
+                            class="h-8 w-8 float-right sm border-2 border-transparent text-gray-600 mr-4 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out" />
                     </a>
                     @endif
 
@@ -22,7 +27,7 @@
                             class="h-8 w-8 float-right sm border-2 border-transparent text-gray-600 mr-4 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out" />
 
                     </a>
-                    @else
+                    @elseif($this->page==0)
                     <a href="{{ route('agreement.index', ['id'=>$room->id]) }}" class="">
                         <x-iconpark-historyquery-o
                             class="h-8 w-8 float-right sm border-2 border-transparent text-gray-600 mr-4 rounded-full hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:bg-gray-100 transition duration-150 ease-in-out" />
@@ -57,7 +62,8 @@
                                             <h6>ราคา : {{$room->price }} บาท/เดือน ค่าประกัน :
                                                 {{$agreement->price_guarantee }} บาท</h6>
 
-                                            <h6>ผู้เช่า : {{$agreement->user->name }} ({{$agreement->user->email }},{{$agreement->user->phone}}) </h6>
+                                            <h6>ผู้เช่า : {{$agreement->user->name }} ({{$agreement->user->email
+                                                }},{{$agreement->user->phone}}) </h6>
                                             <h6>วันเริ่มสัญญา : {{date('d/m/Y',
                                                 strtotime($agreement->start_date))}}
                                             </h6>

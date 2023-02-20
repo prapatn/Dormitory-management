@@ -33,10 +33,12 @@ class BillTable extends Component
             $bills = Bill::join('agreements', 'bills.agreement_id', '=', 'agreements.id')
                 ->join('users', 'agreements.user_id', '=', 'users.id')
                 ->where('users.id', Auth::user()->id)
+                ->where('bills.agreement_id', $this->agreement->id)
                 ->select('bills.*')->paginate(10);
             $results = Bill::join('agreements', 'bills.agreement_id', '=', 'agreements.id')
                 ->join('users', 'agreements.user_id', '=', 'users.id')
                 ->where('users.id', Auth::user()->id)
+                ->where('bills.agreement_id', $this->agreement->id)
                 ->select('bills.*')
                 ->where('bills.status', 'like', '%' . $this->search . '%')->orderBy('id', 'DESC')
                 ->paginate(10);

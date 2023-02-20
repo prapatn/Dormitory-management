@@ -94,8 +94,18 @@
                                                             }}
                                                             @if ($agreement->agreementShowStatus()=="อยู่ในสัญญา")
                                                             ({{Carbon\Carbon::now()->format('d/m/Y')}})
+                                                            @elseif ($agreement->status == 'ยกเลิกสัญญาก่อนกำหนด')
+                                                            ({{$agreement->updated_at->format('d/m/Y')}})
                                                             @endif
                                                         </h6>
+
+                                                        @if ($agreement->status == 'ยกเลิกสัญญาก่อนกำหนด')
+                                                        <h6>หมายเหตุ :
+                                                            {{
+                                                            $agreement->annotation
+                                                            }}
+                                                        </h6>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 @endif

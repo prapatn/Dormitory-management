@@ -18,7 +18,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $agreements = Agreement::where(['user_id' => Auth::user()->id, 'status' => 'ยอมรับ'])->paginate(6);
+        $agreements = Agreement::where('user_id', Auth::user()->id)->where('status', 'ยอมรับ')->orWhere('status', 'ยกเลิกสัญญาก่อนกำหนด')->paginate(6);
         return view('renter.payment.index', compact('agreements'));
     }
 

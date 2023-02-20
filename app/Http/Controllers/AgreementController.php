@@ -9,6 +9,7 @@ use App\Models\Dormitory;
 use App\Models\Room;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -132,6 +133,19 @@ class AgreementController extends Controller
         return redirect()->back();
     }
 
+    public function agreement_exit_status(Request $request)
+    {
+        $agreement = Agreement::where(['id' => $request['id']])->first();
+        if ($agreement->room->dormitory->user_id ==  Auth::user()->id) {
+            $agreement->status = trim('ยกเลิกสัญญาก่อนกำหนด');
+            $agreement->annotation = $request['annotation'];
+            $agreement->save();
+        } else {
+            abort(404);
+        }
+        return redirect()->route('dorm.show', ['id' => $agreement->room->dormitory->id]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -148,6 +162,22 @@ class AgreementController extends Controller
                 abort(404);
             } else {
                 return view('owner.agreement.edit', compact('agreement'));
+            }
+        } catch (\Throwable $th) {
+            return  abort(403);
+        }
+    }
+
+    public function exit($id)
+    {
+        try {
+            $agreement = Agreement::where([
+                'id' => $id,
+            ])->first();
+            if (Auth::user()->id != $agreement->room->dormitory->user_id) {
+                abort(404);
+            } else {
+                return view('owner.agreement.exit', compact('agreement',));
             }
         } catch (\Throwable $th) {
             return  abort(403);
