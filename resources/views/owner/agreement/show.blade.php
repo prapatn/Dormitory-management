@@ -132,7 +132,7 @@
                             <div class="py-6">
                                 <div class="container">
                                     <div class="row">
-                                        @livewire('bill-table', ['agreement' => $agreement])
+                                        @livewire('bill-table', ['agreement' => $agreement ,'chkPage' => 'renter'])
                                     </div>
                                 </div>
                             </div>

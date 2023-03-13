@@ -16,6 +16,7 @@ class BillTable extends Component
     public $search = '';
     public $user;
     public $agreement;
+    public $chkPage;
 
     public function updatingSearch()
     {
@@ -30,6 +31,7 @@ class BillTable extends Component
                 ->where('status', 'like', '%' . $this->search . '%')->orderBy('id', 'DESC')
                 ->paginate(10);
         } else if (Auth::user()->role == "renter") {
+            if($this->chkPage=='renter'){
             $bills = Bill::join('agreements', 'bills.agreement_id', '=', 'agreements.id')
                 ->join('users', 'agreements.user_id', '=', 'users.id')
                 ->where('users.id', Auth::user()->id)
@@ -42,6 +44,19 @@ class BillTable extends Component
                 ->select('bills.*')
                 ->where('bills.status', 'like', '%' . $this->search . '%')->orderBy('id', 'DESC')
                 ->paginate(10);
+            }else{
+            $bills = Bill::join('agreements', 'bills.agreement_id', '=', 'agreements.id')
+                ->join('users', 'agreements.user_id', '=', 'users.id')
+                ->where('users.id', Auth::user()->id)
+                ->select('bills.*')->paginate(10);
+            $results = Bill::join('agreements', 'bills.agreement_id', '=', 'agreements.id')
+                ->join('users', 'agreements.user_id', '=', 'users.id')
+                ->where('users.id', Auth::user()->id)
+                ->select('bills.*')
+                ->where('bills.status', 'like', '%' . $this->search . '%')->orderBy('id', 'DESC')
+                ->paginate(10);
+            }
+
         }
 
         return view('livewire.bill-table', ['bills' => $bills, 'results' => $results]);
